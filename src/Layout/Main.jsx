@@ -9,7 +9,7 @@ const Main = () => {
     return (
         <div>
             <Navbar open={open} setOpen={setOpen}/>
-           <div onClick={()=>setOpen(false)} className="min-h-[calc(100vh-3J00px)]">
+           <div onClick={()=>setOpen(false)} className="min-h-[calc(100vh-300px)]">
            <Outlet/>
            </div>
             <Footer/>

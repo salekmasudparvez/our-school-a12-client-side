@@ -13,12 +13,12 @@ const Navbar = ({ open, setOpen }) => {
         <NavItem name="Contact us" path='/contact' />
     </>
     const dashboardItem = <div className='dropdown-content border w-52 mt-3 rounded flex flex-col p-2'>
-        <a ><NavLink className={({ isActive }) => isActive ? 'text-white md:inline  block bg-first p-2' : 'p-2 hover:bg-first block hover:text-white'} to='dashboard'>Dashboard</NavLink></a>
+        <a ><NavLink  className={({ isActive }) => isActive ? 'text-white md:inline  block bg-first p-2' : 'p-2 hover:bg-first block hover:text-white'} to='dashboard'>Dashboard</NavLink></a>
         <a className='p-2 hover:bg-first block hover:text-white'>Log out</a>
     </div>
     return (
         <>
-            <nav className="flex border justify-between items-center min-h-[74px] max-w-6xl mx-auto md:px-10 px-4">
+            <nav className="flex bg-white bg-opacity-40 fixed top-0 z-20 w-full border justify-between items-center min-h-[74px] max-w-6xl mx-auto md:px-10 px-4">
                 {/* hambarger */}
                 <div onClick={() => setOpen(!open)} className=' md:hidden w-10 text-2xl'>
                     {open ? <Icon icon="akar-icons:cross" /> : <Icon icon="fe:bar" />}

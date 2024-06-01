@@ -5,11 +5,12 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import Routes from './Routes/Routes';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={Routes} />
+   <ParallaxProvider><RouterProvider router={Routes} /></ParallaxProvider> 
   </React.StrictMode>
 );

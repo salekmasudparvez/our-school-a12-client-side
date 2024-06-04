@@ -6,7 +6,7 @@ import { useState } from "react";
 
 
 const DashboardLayout = () => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
     return (
         <div className="relative">
             {/* for phone views */}
@@ -22,9 +22,12 @@ const DashboardLayout = () => {
             {open && <div className='md:hidden z-[10] bg-white bg-opacity-60 text-center flex flex-col border border-second border-opacity-50 shadow-md w-full fixed top-0 mt-[74px] justify-start p-3 rounded  gap-1'>
                 <Sidebar />
             </div>}
-            <div className="md:flex hidden absolute top-0">
+            <div className=" w-full flex md:pt-0 pt-[74px] md:hidden">
+                    <Outlet />
+                </div>
+            <div className="md:flex w-full hidden absolute top-0">
 
-                <div className="flex flex-col items-center p-4 w-60 h-screen z-10 bg-white gap-5 border shadow-md">
+                <div className="flex flex-col items-center p-4 w-60 min-h-screen z-10 bg-white gap-5 border shadow-md">
                     <div className="border">
                         <Logo />
                     </div>
@@ -32,7 +35,7 @@ const DashboardLayout = () => {
                     <Sidebar />
 
                 </div>
-                <div className=" bg-orange-400">
+                <div  className=" w-full">
                     <Outlet />
                 </div>
             </div>

@@ -10,10 +10,11 @@ const SingupForm = () => {
     const { creatUserPassword, updateUserProfile, creatUserGoogle, setUser, user, creatUserGithub } = useAuth()
     const [role, setRole] = useState("null");
     const navigate = useNavigate()
+    const [singupLoading, setSingupLoading] = useState(false)
 
     const handleSingup = async (e) => {
-
         e.preventDefault()
+        setSingupLoading(true)
         if (role === "null") {
             return toast.error("Role is required")
         }
@@ -29,31 +30,32 @@ const SingupForm = () => {
             return toast.error("User already exist")
         }
 
-       
-            const result = await creatUserPassword(email, password);
-            await updateUserProfile(name);
-            setUser({ ...result?.user, displayName: name })
-            await axios.post('http://localhost:5000/users', newUserData)
-           
-            toast.success('Successfully created Account')
-            navigate('/')
 
-      
+        const result = await creatUserPassword(email, password);
+        await updateUserProfile(name);
+        setUser({ ...result?.user, displayName: name })
+        await axios.post('http://localhost:5000/users', newUserData)
+
+        toast.success('Successfully created Account')
+        setSingupLoading(false)
+        navigate('/')
+
+
     }
-    const handleGoogleSingUp = async() => {
+    const handleGoogleSingUp = async () => {
 
         if (role === "null") {
             return toast.error("Role is required")
         }
-        
-        
+
+
         creatUserGoogle()
         // const email = user?.email;
         // const name = user?.displayName;
         // const newUser = await axios.post('/users', {name,email ,role});
         // console.log(newUser)
     }
-    const handleGithubSingUp = async() => {
+    const handleGithubSingUp = async () => {
 
         if (role === "null") {
             return toast.error("Role is required")
@@ -63,7 +65,7 @@ const SingupForm = () => {
         // const name = user?.displayName;
         // const newUser = await axios.post('/users', {name,email ,role})
         // console.log(newUser)
-        
+
     }
     return (
 
@@ -150,7 +152,8 @@ const SingupForm = () => {
                         type="submit"
                         className="text-white bg-first hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                        Sing up
+                       {singupLoading?<Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" />:"Sing up"}
+                       
                     </button>
                 </form>
                 <div className="text-center">

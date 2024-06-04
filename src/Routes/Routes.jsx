@@ -11,6 +11,7 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import CreateNotes from "../Pages/Dashboard/Students/CreateNotes/CreateNotes";
 import Notes from './../Pages/Dashboard/Students/Notes/Notes';
 import StudyMaterials from './../Pages/Dashboard/Students/StudyMaterials/StudyMaterials';
+import Reviews from "../Pages/Dashboard/Students/BookedSession/Reviews";
 
 
 
@@ -33,8 +34,9 @@ const Routes = createBrowserRouter([
         element: <About></About>
       },
       {
-        path: '/details',
-        element: <StudySectionDetails></StudySectionDetails>
+        path: '/details/:id',
+        element: <StudySectionDetails></StudySectionDetails>,
+        loader:({params})=>fetch(`http://localhost:5000/sessions${params.id}`),
       },
     ],
 
@@ -58,6 +60,11 @@ const Routes = createBrowserRouter([
       {
         path:'/dashboard/studymaterials',
         element: <StudyMaterials></StudyMaterials>
+      },
+      {
+        path:'/dashboard/reviews/:id',
+        element: <Reviews></Reviews>,
+        loader:({params})=>fetch(`http://localhost:5000/reviews/${params.id}`),
       },
     ]
   },

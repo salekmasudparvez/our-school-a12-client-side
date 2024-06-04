@@ -6,9 +6,13 @@ import useAuth from "../../Hook/useAuth";
 
 const SinginForm = () => {
     const [pass, setPass] = useState("password");
-    const { user, signInWithPassword } = useAuth()
+    const { user, signInWithPassword } = useAuth();
+    const [singinLoading, setSinginLoading] = useState(false);
+
+
     const handleSingin =async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        setSinginLoading(true)
         const form = e.target
         const email = form.floating_email.value;
         const password = form.floating_password.value;
@@ -20,10 +24,12 @@ const SinginForm = () => {
         try {
             const result = await signInWithPassword(email, password)
             if (result) {
-                toast.success('Log in successful')
+                toast.success('Log in successful');
+                setSinginLoading(false)
             }
           
         } catch (error) { 
+            setSinginLoading(false)
             toast.error('Invaild email or password')
         }
 
@@ -96,9 +102,10 @@ const SinginForm = () => {
 
                     <button
                         type="submit"
-                        className="text-white btn bg-first hover:bg-blue-500  focus:outline-none rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="text-white bg-first hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                        Sing in
+                       {singinLoading?<Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" />:"Sing in"}
+                       
                     </button>
                 </form>
                 <div className="text-center">

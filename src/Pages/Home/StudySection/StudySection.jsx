@@ -20,7 +20,7 @@ const {data:sessions}=useQuery({
             <HeaderTitle heading="Study Time" title="Find all the study sessions easily, and don&#39;t be late." />
             <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3 place-items-center px-3">
              {
-              sessions?.map((session,idx)=><StudySectionCard key={idx} image={session.Image} CardTitle={session.SessionTitle} CardDescription={session.SessionDescription} path={`/details/${session._id}`} Button="Read more" ></StudySectionCard>)
+              sessions?.map((session,idx)=><StudySectionCard key={idx} session={session} ></StudySectionCard>)
              }
             </div>
             <div className="flex justify-center items-center ">

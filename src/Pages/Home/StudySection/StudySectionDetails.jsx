@@ -123,7 +123,7 @@ const StudySectionDetails = () => {
             <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 px-3">
 
 
-                {reviews.map((singleReview, idx)=> <Reviewcard  key={idx} singleReview={singleReview} ></Reviewcard>)}
+                {reviews?.map((singleReview, idx)=> <Reviewcard  key={idx} singleReview={singleReview} ></Reviewcard>)}
 
             </div>
         </section>

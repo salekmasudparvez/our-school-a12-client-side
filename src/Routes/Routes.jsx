@@ -12,6 +12,10 @@ import CreateNotes from "../Pages/Dashboard/Students/CreateNotes/CreateNotes";
 import Notes from './../Pages/Dashboard/Students/Notes/Notes';
 import StudyMaterials from './../Pages/Dashboard/Students/StudyMaterials/StudyMaterials';
 import Reviews from "../Pages/Dashboard/Students/BookedSession/Reviews";
+import UpdateNotes from "../Pages/Dashboard/Students/Notes/UpdateNotes";
+import CreateSession from "../Pages/Dashboard/Students/Teacher/CreateSession/CreateSession";
+import ViewAllSessions from "../Pages/Dashboard/Students/Teacher/ViewAllSessions/ViewAllSessions";
+import UploadMaterials from "../Pages/Dashboard/Students/Teacher/UploadMaterials/UploadMaterials";
 
 
 
@@ -66,6 +70,26 @@ const Routes = createBrowserRouter([
         element: <Reviews></Reviews>,
         loader:({params})=>fetch(`http://localhost:5000/reviews/${params.id}`),
       },
+      {
+        path:'/dashboard/notes/:id',
+        element: <UpdateNotes></UpdateNotes>,
+        loader:({params})=>fetch(`http://localhost:5000/noteUpdate/${params.id}`),
+      },
+
+      // tutor
+      {
+        path:'/dashboard/tutor',
+        element: <CreateSession></CreateSession>,
+      },
+      {
+        path:'/dashboard/tutor/ViewAllSessions',
+        element: <ViewAllSessions></ViewAllSessions>,
+      },
+      {
+        path:'/dashboard/tutor/UploadMaterials',
+        element: <UploadMaterials></UploadMaterials>,
+      },
+     
     ]
   },
   {

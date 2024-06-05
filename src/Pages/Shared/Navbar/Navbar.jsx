@@ -5,9 +5,12 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import Logo from './Logo';
 import useAuth from '../../../Hook/useAuth';
+import useRole from '../../../Hook/useRole';
+import { useState } from 'react';
 
 const Navbar = ({ open, setOpen }) => {
     const {user,LogOutUser}=useAuth();
+    const [role]=useRole();
     const navItems = <>
         <NavItem name="Home" path='/' />
         <NavItem name="About" path='/about' />
@@ -15,10 +18,11 @@ const Navbar = ({ open, setOpen }) => {
         {user?"":<> <NavItem name="Singup" path='singup' />
         <NavItem name="Singin" path='singin' /></>
        }
-
     </>
+   
+
     const dashboardItem = <div className='dropdown-content bg-white bg-opacity-50 border w-52 mt-3 rounded text-center flex flex-col p-2'>
-        <a ><NavLink  className={({ isActive }) => isActive ? 'text-white md:inline  block bg-first p-2' : 'p-2 hover:bg-first block hover:text-white'} to='dashboard'>Dashboard</NavLink></a>
+        <a ><NavLink  className={({ isActive }) => isActive ? 'text-white md:inline  block bg-first p-2' : 'p-2 hover:bg-first block hover:text-white'} to={`${role === "Student" ? '/dashboard' : role === "Teacher" ? '/dashboard/tutor' : '/dashboard/admin'}`}>Dashboard</NavLink></a>
         <button onClick={LogOutUser} className='p-2 hover:bg-first block hover:text-white'>Log out</button>
     </div>
     return (

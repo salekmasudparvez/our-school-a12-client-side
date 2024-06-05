@@ -3,18 +3,19 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const StudySectionCard = ({
-    image,
-    Button,
-    CardDescription,
-    CardTitle,
-    onGoing = true,
-    path
-}) => {
+const StudySectionCard = ({ session }) => {
+    const {
+       
+        SessionDescription,
+        SessionTitle,
+        onGoing = true,
+        _id
+    } = session
+    console.log(session)
 
     return (
         <div className="mb-10 overflow-hidden relative rounded-lg bg-white shadow-md duration-300 hover:shadow-xl dark:bg-dark-2 ">
-            <img src={image} alt="" className="w-full " />
+            {/* <img src={Image} alt="" className="w-full " /> */}
             {onGoing ?
                 <div className="badge badge-success absolute top-1 right-1 text-white gap-2">
                     <Icon icon="icon-park:check-correct" />
@@ -28,30 +29,25 @@ const StudySectionCard = ({
             <div className="p-8 text-center sm:p-9 md:p-7 xl:p-9">
                 <h3>
                     <a className="mb-4 block text-xl font-semibold text-dark hover:text-first dark:text-white sm:text-[22px] md:text-xl lg:text-[22px] xl:text-xl 2xl:text-[22px] uppercase" >
-                        {CardTitle}
+                        {SessionTitle}
                     </a>
                 </h3>
                 <p className="mb-7 text-base leading-relaxed text-body-color dark:text-dark-6">
-                    {CardDescription}
+                    {SessionDescription}
                 </p>
 
-                {Button && (
-                    <Link to={path} className="btn rounded-full border border-gray-3  text-base font-medium text-body-color transition hover:border-second hover:bg-first hover:text-white dark:border-dark-3 dark:text-dark-6 ">
-                        {Button}
+                
+                    <Link to={`/details/${_id}`} className="btn rounded-full border border-gray-3  text-base font-medium text-body-color transition hover:border-second hover:bg-first hover:text-white dark:border-dark-3 dark:text-dark-6 ">
+                        Read more
                     </Link>
-                )}
+            
             </div>
         </div>
     );
 };
 
 StudySectionCard.propTypes = {
-    image: PropTypes.string,
-    Button: PropTypes.string,
-    CardDescription: PropTypes.string,
-    CardTitle: PropTypes.string,
-    path: PropTypes.string,
-    onGoing: PropTypes.bool,
+    session: PropTypes.obj
 }
 
 export default StudySectionCard;

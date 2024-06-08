@@ -26,8 +26,15 @@ const Sidebar = () => {
                         <SidebarItems name=" Create session" path="/dashboard/tutor" icon="oui:ml-create-single-metric-job" />
                         <SidebarItems name="View all-sessions" path="/dashboard/tutor/ViewAllSessions" icon="ep:view" />
                         <SidebarItems name="Upload materials" path='/dashboard/tutor/UploadMaterials' icon="material-symbols:upload" />
-                        <SidebarItems name="All materials" path="/dashboard/studymaterials" icon="bx:file" />
+                        <SidebarItems name="All materials" path="/dashboard/tutor/allMaterials" icon="bx:file" />
                         <SidebarItems name="All notes" path="/dashboard/studymaterials" icon="hugeicons:note" />
+                    </>
+                }
+                {role === 'Admin' &&
+                    <> 
+                        <SidebarItems name="User" path="/dashboard/admin" icon="clarity:group-solid" />
+                        <SidebarItems name="All Study Session" path="/dashboard/admin/allstudysession" icon="icon-park-outline:all-application" />
+                        <SidebarItems name="View All Materials" path="/dashboard/admin/allmaterials" icon="bx:file" />   
                     </>
                 }
 

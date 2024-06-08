@@ -1,7 +1,7 @@
 import { Hourglass } from "react-loader-spinner";
-import PrimaryInput from "../../../../../Components/Dashboard/PrimaryInput";
-import HeaderTitle from "../../../../../Components/HeaderTitle";
-import useAuth from './../../../../../Hook/useAuth';
+import PrimaryInput from "../../../../Components/Dashboard/PrimaryInput";
+import HeaderTitle from "../../../../Components/HeaderTitle";
+import useAuth from './../../../../Hook/useAuth';
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";

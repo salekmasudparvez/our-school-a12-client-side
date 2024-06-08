@@ -1,18 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import useAuth from "../../../../../Hook/useAuth";
+import useAuth from "../../../../Hook/useAuth";
 import { Hourglass } from "react-loader-spinner";
-import HeaderTitle from "../../../../../Components/HeaderTitle";
+import HeaderTitle from "../../../../Components/HeaderTitle";
 import ViewAllSessionCard from "./ViewAllSessionCard";
 
 
 const ViewAllSessions = () => {
     const { user } = useAuth();
     //get pending sessions
-    const { isLoading, data: pendingSessions } = useQuery({
+    const { refetch,isLoading, data: pendingSessions } = useQuery({
         queryKey: ['sessionsPending'],
         queryFn: async () => {
-            const response = await axios(`http://localhost:5000/pendingSessions/${user.email}`)
+            const response = await axios(`http://localhost:5000/aceptsession/${user.email}`)
             const data = await response.data
             return data
         }
@@ -36,7 +36,7 @@ const ViewAllSessions = () => {
             <HeaderTitle heading="View All Sessions" title="You can see all the sessions that you have created and waiting for admin approval." />
           
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 px-3 place-items-center">
-                {pendingSessions.map((session, idx) =>  <ViewAllSessionCard key={idx} session={session} /> )}
+            {pendingSessions?.map((session, idx) =>  <ViewAllSessionCard key={idx} session={session} refetch={refetch} /> )}
             </div>
         </div>
     );

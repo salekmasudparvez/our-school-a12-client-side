@@ -1,14 +1,15 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from "../../Hook/useAuth";
+import axios from "axios";
 
 const SinginForm = () => {
     const [pass, setPass] = useState("password");
-    const { user, signInWithPassword } = useAuth();
+    const { user, signInWithPassword,creatUserGoogle,creatUserGithub } = useAuth();
     const [singinLoading, setSinginLoading] = useState(false);
-
+    const navigate = useNavigate()
 
     const handleSingin =async (e) => {
         e.preventDefault();
@@ -26,15 +27,38 @@ const SinginForm = () => {
             if (result) {
                 toast.success('Log in successful');
                 setSinginLoading(false)
+                navigate('/')
             }
           
         } catch (error) { 
             setSinginLoading(false)
             toast.error('Invaild email or password')
+
         }
+    }
+    const handleGoogleSingUp =  () => {
 
+        creatUserGoogle()
+        .then(res=>{
+            console.log(res)
+            const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
+             axios.post('http://localhost:5000/users', newUserData)
+            toast.success('Successfully created Account')
+            navigate('/')
+        })
+       
+    }
+    const handleGithubSingUp = async () => {
 
-
+        
+        creatUserGithub()
+        .then(res=>{
+            console.log(res)
+            const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
+             axios.post('http://localhost:5000/users', newUserData)
+            toast.success('Successfully created Account')
+            navigate('/')
+        })
 
     }
     return (
@@ -111,6 +135,15 @@ const SinginForm = () => {
                 <div className="text-center">
                     <h3>Don&apos;t have any account? please<Link to="/singup" className="btn btn-link px-0">Sing up</Link></h3>
                 </div>
+                <div className="divider">Or</div>
+                <button onClick={handleGoogleSingUp} type="button" className="flex btn items-center justify-center w-full hover:bg-first hover:text-white space-x-2 border rounded-md ">
+                    <span className="text-4xl"> <Icon icon="flat-color-icons:google" /></span>
+                    <p>Sing up with Google</p>
+                </button>
+                <button onClick={handleGithubSingUp} type="button" className="flex btn items-center justify-center mb-10 w-full hover:bg-first hover:text-white space-x-2 border rounded-md ">
+                    <span className="text-4xl"> <Icon icon="devicon:github" /></span>
+                    <p>Sing up with Github</p>
+                </button>
             </div>
         </div>
     );

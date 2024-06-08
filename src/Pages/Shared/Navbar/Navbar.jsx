@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom';
 import Logo from './Logo';
 import useAuth from '../../../Hook/useAuth';
 import useRole from '../../../Hook/useRole';
-import { useState } from 'react';
 
 const Navbar = ({ open, setOpen }) => {
     const {user,LogOutUser}=useAuth();
@@ -15,8 +14,8 @@ const Navbar = ({ open, setOpen }) => {
         <NavItem name="Home" path='/' />
         <NavItem name="About" path='/about' />
         <NavItem name="Contact" path='/contact' />
-        {user?"":<> <NavItem name="Singup" path='singup' />
-        <NavItem name="Singin" path='singin' /></>
+        {user?"":<> <NavItem name="Sing up" path='singup' />
+        <NavItem name="Sing in" path='singin' /></>
        }
     </>
    

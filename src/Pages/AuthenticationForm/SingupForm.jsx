@@ -22,7 +22,7 @@ const SingupForm = () => {
         const name = form.floatingName.value;
         const email = form.floating_email.value;
         const password = form.floating_password.value;
-        const newUserData = { name, email, role };
+
         if (!/.{6,}/.test(password)) {
             return toast.error("Password must be at least 6 characters");
         }
@@ -30,10 +30,11 @@ const SingupForm = () => {
             return toast.error("User already exist")
         }
 
-
+        const newUserData = { name, email, role };
         const result = await creatUserPassword(email, password);
         await updateUserProfile(name);
         setUser({ ...result?.user, displayName: name })
+
         await axios.post('http://localhost:5000/users', newUserData)
 
         toast.success('Successfully created Account')
@@ -42,29 +43,29 @@ const SingupForm = () => {
 
 
     }
-    const handleGoogleSingUp = async () => {
-
-        if (role === "null") {
-            return toast.error("Role is required")
-        }
-
+    const handleGoogleSingUp =  () => {
 
         creatUserGoogle()
-        // const email = user?.email;
-        // const name = user?.displayName;
-        // const newUser = await axios.post('/users', {name,email ,role});
-        // console.log(newUser)
+        .then(res=>{
+            console.log(res)
+            const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
+             axios.post('http://localhost:5000/users', newUserData)
+            toast.success('Successfully created Account')
+            navigate('/')
+        })
+       
     }
     const handleGithubSingUp = async () => {
 
-        if (role === "null") {
-            return toast.error("Role is required")
-        }
+        
         creatUserGithub()
-        // const email = user?.email;
-        // const name = user?.displayName;
-        // const newUser = await axios.post('/users', {name,email ,role})
-        // console.log(newUser)
+        .then(res=>{
+            console.log(res)
+            const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
+             axios.post('http://localhost:5000/users', newUserData)
+            toast.success('Successfully created Account')
+            // navigate('/')
+        })
 
     }
     return (
@@ -152,56 +153,24 @@ const SingupForm = () => {
                         type="submit"
                         className="text-white bg-first hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                       {singupLoading?<Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" />:"Sing up"}
-                       
+                        {singupLoading ? <Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" /> : "Sing up"}
+
                     </button>
                 </form>
                 <div className="text-center">
                     <h3>Already have an account? please<Link to="/singin" className="btn btn-link px-0">Sing in</Link></h3>
                 </div>
                 <div className="divider">Or</div>
-                <button onClick={() => document.getElementById('my_modal_2').showModal()} type="button" className="flex btn items-center justify-center w-full hover:bg-first hover:text-white space-x-2 border rounded-md ">
+                <button onClick={handleGoogleSingUp} type="button" className="flex btn items-center justify-center w-full hover:bg-first hover:text-white space-x-2 border rounded-md ">
                     <span className="text-4xl"> <Icon icon="flat-color-icons:google" /></span>
                     <p>Sing up with Google</p>
                 </button>
-                <button onClick={() => document.getElementById('my_modal_3').showModal()} type="button" className="flex btn items-center justify-center mb-10 w-full hover:bg-first hover:text-white space-x-2 border rounded-md ">
+                <button onClick={handleGithubSingUp} type="button" className="flex btn items-center justify-center mb-10 w-full hover:bg-first hover:text-white space-x-2 border rounded-md ">
                     <span className="text-4xl"> <Icon icon="devicon:github" /></span>
                     <p>Sing up with Github</p>
                 </button>
             </div>
 
-            <dialog id="my_modal_2" className="modal bg-white">
-                <div className="modal-box space-y-2">
-                    <div className=" z-0 w-full group">
-                        <select onChange={(e) => setRole(e.target.value)} className="select focus:border-none select-bordered w-full">
-                            <option disabled selected>Role</option>
-                            <option value="Student">Student</option>
-                            <option value="Teacher">Teacher</option>
-                            <option value="Admin">Admin</option>
-                        </select>
-                    </div>
-                    <button onClick={handleGoogleSingUp} className="btn hover:bg-first rounded-sm btn-sm">Continue</button>
-                </div>
-                <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
-                </form>
-            </dialog>
-            <dialog id="my_modal_3" className="modal bg-white">
-                <div className="modal-box space-y-2">
-                    <div className=" z-0 w-full group">
-                        <select onChange={(e) => setRole(e.target.value)} className="select focus:border-none select-bordered w-full">
-                            <option disabled selected>Role</option>
-                            <option value="Student">Student</option>
-                            <option value="Teacher">Teacher</option>
-                            <option value="Admin">Admin</option>
-                        </select>
-                    </div>
-                    <button onClick={handleGithubSingUp} className="btn hover:bg-first rounded-sm btn-sm">Continue</button>
-                </div>
-                <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
-                </form>
-            </dialog>
         </div>
 
     )

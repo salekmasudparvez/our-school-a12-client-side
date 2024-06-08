@@ -13,9 +13,14 @@ import Notes from './../Pages/Dashboard/Students/Notes/Notes';
 import StudyMaterials from './../Pages/Dashboard/Students/StudyMaterials/StudyMaterials';
 import Reviews from "../Pages/Dashboard/Students/BookedSession/Reviews";
 import UpdateNotes from "../Pages/Dashboard/Students/Notes/UpdateNotes";
-import CreateSession from "../Pages/Dashboard/Students/Teacher/CreateSession/CreateSession";
-import ViewAllSessions from "../Pages/Dashboard/Students/Teacher/ViewAllSessions/ViewAllSessions";
-import UploadMaterials from "../Pages/Dashboard/Students/Teacher/UploadMaterials/UploadMaterials";
+import CreateSession from "../Pages/Dashboard/Teacher/CreateSession/CreateSession";
+import ViewAllSessions from "../Pages/Dashboard/Teacher/ViewAllSessions/ViewAllSessions";
+import UploadMaterials from "../Pages/Dashboard/Teacher/UploadMaterials/UploadMaterials";
+import AllMaterials from "../Pages/Dashboard/Teacher/AllMaterials/AllMaterials";
+import AllUsers from "../Pages/Dashboard/Admin/AllUsers/AllUsers";
+import AllStudySession from "../Pages/Dashboard/Admin/AllStudySession/AllStudySession";
+import ViewAllMaterials from "../Pages/Dashboard/Admin/AllMaterials/ViewAllMaterials";
+import AllStudySessionUpdate from "../Pages/Dashboard/Admin/AllStudySession/AllStudySessionUpdate";
 
 
 
@@ -40,7 +45,7 @@ const Routes = createBrowserRouter([
       {
         path: '/details/:id',
         element: <StudySectionDetails></StudySectionDetails>,
-        loader:({params})=>fetch(`http://localhost:5000/sessions${params.id}`),
+        loader:({params})=>fetch(`http://localhost:5000/sessions/${params.id}`),
       },
     ],
 
@@ -89,6 +94,29 @@ const Routes = createBrowserRouter([
         path:'/dashboard/tutor/UploadMaterials',
         element: <UploadMaterials></UploadMaterials>,
       },
+      {
+        path:'/dashboard/tutor/allMaterials',
+        element: <AllMaterials></AllMaterials>,
+      },
+      //admin
+      {
+        path:'/dashboard/admin',
+        element: <AllUsers></AllUsers>,
+      },
+      {
+        path:'/dashboard/admin/allstudysession',
+        element: <AllStudySession></AllStudySession>,
+      },
+      {
+        path:'/dashboard/admin/allmaterials',
+        element: <ViewAllMaterials></ViewAllMaterials>,
+      },
+      {
+        path:'/dashboard/admin/allstudysessionupdate/:id',
+        element: <AllStudySessionUpdate></AllStudySessionUpdate>,
+        loader:({params})=>fetch(`http://localhost:5000/allstudysessionupdate/${params.id}`),
+      },
+
      
     ]
   },

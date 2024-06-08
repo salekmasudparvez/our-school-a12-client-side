@@ -1,13 +1,29 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
+import axios from 'axios';
 import { PropTypes } from 'prop-types';
+import toast from 'react-hot-toast';
 
-const ViewAllSessionCard = ({ session }) => {
+const ViewAllSessionCard = ({ session,refetch }) => {
     const {
 
         SessionDescription,
         SessionTitle,
-        Status
+        Status,
+        _id
     } = session
+    const handleUpdateStatus = async(_id)=>{
+        try {
+            await axios.patch('http://localhost:5000/aceptsession',{id:_id})
+                .then(res=>{
+                    if(res){
+                        toast.success("Session Status Updated")
+                        refetch()
+                    }})
+        } catch (error) {
+            toast.error(error)
+        }
+        
+    }
     
     return (
         <>
@@ -39,15 +55,15 @@ const ViewAllSessionCard = ({ session }) => {
                         {SessionDescription}
                     </p>
                     {Status === "pending" ? (
-                        <button className='btn-disabled disabled:bg-info btn rounded-full border border-gray-3  text-base font-medium text-body-color transition hover:border-second hover:bg-first hover:text-white dark:border-dark-3 dark:text-dark-6'>
+                        <button className='btn-disabled disabled:bg-info btn rounded-full border  text-base font-medium text-body-color transition hover:border-second hover:bg-first hover:text-white dark:border-dark-3 dark:text-dark-6'>
                             Waiting for Admin approval
                         </button>
                     ) : Status === "approved" ? (
-                        <button className='flex whitespace-nowrap text-center mx-auto rounded-full px-2 py-1 border-gray-3  text-base font-medium border border-green-500'>
+                        <button className='flex whitespace-nowrap text-center mx-auto rounded-full px-2 py-1  text-base font-medium border border-green-500'>
                             <span><Icon className='text-green-600  text-3xl' icon="icon-park-solid:success" /></span>Approved
                         </button>
                     ) : Status === "rejected" ? (
-                        <button className='btn rounded btn-error border border-gray-3  text-base font-medium text-body-color transition hover:border-second hover:bg-first hover:text-white dark:border-dark-3 dark:text-dark-6'>
+                        <button onClick={()=>handleUpdateStatus(_id)} className='btn rounded-full btn-error border  text-white font-medium text-body-color transition hover:border-second  hover:text-white dark:border-dark-3 dark:text-dark-6'>
                         Re-check
                     </button>
                     ) : null}

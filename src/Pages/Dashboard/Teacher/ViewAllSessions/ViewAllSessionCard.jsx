@@ -75,5 +75,6 @@ const ViewAllSessionCard = ({ session,refetch }) => {
 };
 ViewAllSessionCard.propTypes = {
     session: PropTypes.object.isRequired,
+    refetch: PropTypes.func.isRequired,
 }
 export default ViewAllSessionCard;

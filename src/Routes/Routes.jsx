@@ -26,6 +26,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import StudentRoutes from "./StudentRoutes";
 import NoneUser from "./NoneUser";
 import ViewAllSessionsHome from "../Pages/Home/StudySection/ViewAllSessionsHome";
+import AllTutor from "../Pages/Home/Tutors/AllTutor";
 
 
 
@@ -53,7 +54,12 @@ const Routes = createBrowserRouter([
         path:'/viewstudysessionshome',
         element:<PrivateRoutes><ViewAllSessionsHome/></PrivateRoutes>,
         loader:()=>fetch('http://localhost:5000/sessionsCount')
-      }
+      },
+      {
+        path:'/alltutors',
+        element:<PrivateRoutes><AllTutor/></PrivateRoutes>,
+        loader:()=>fetch('http://localhost:5000/tutorsCount')
+      },
     ],
 
   },

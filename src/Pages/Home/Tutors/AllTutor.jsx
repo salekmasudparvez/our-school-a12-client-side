@@ -1,22 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
-import HeaderTitle from "../../../Components/HeaderTitle";
-import StudySectionCard from "./StudySectionCard";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Hourglass } from "react-loader-spinner";
+import HeaderTitle from "../../../Components/HeaderTitle";
+import TutorCard from "./TutorCard";
 
 
-const ViewAllSessionsHome = () => {
+const AllTutor = () => {
     const [itemPerPage, setItemPerPage] = useState(6);
     const { count } = useLoaderData();
+    console.log(count)
+    // const count = 10
     const numberOfPages = Math.ceil(count / itemPerPage);
     const pages = [...Array(numberOfPages).keys()];
     const [currentPage, setCurrentPage] = useState(0);
 
-    const { isPending, isFetching, data: sessionData } = useQuery({
-        queryKey: ['allsessionData', currentPage, itemPerPage],
+    const { isPending, isFetching, data: alltutorsdata } = useQuery({
+        queryKey: ['alltutorsdata', currentPage, itemPerPage],
         queryFn: async () => {
-            let url = `http://localhost:5000/sessions?page=${currentPage}&size=${itemPerPage}`;
+            let url = `http://localhost:5000/alltutors?page=${currentPage}&size=${itemPerPage}`;
 
             try {
                 const res = await fetch(url);
@@ -56,10 +58,10 @@ const ViewAllSessionsHome = () => {
     }
     return (
         <div className="pt-[100px]">
-            <HeaderTitle heading="All Sessions" title="Awsome sessions for fresh students to kickstart their learning journey with foundational knowledge and hands-on experience in various subjects"></HeaderTitle>
+            <HeaderTitle heading="Meet Our Tutors" title="Our tutors are experienced educator who provide personalized guidance and support to students, helping them grasp difficult concepts and achieve academic success."></HeaderTitle>
             <div className="grid lg:grid-cols-3 pt-10 md:grid-cols-2 grid-cols-1 gap-3 place-items-center px-3">
                 {
-                    sessionData?.map((session, idx) => <StudySectionCard key={idx} session={session} ></StudySectionCard>)
+                    alltutorsdata?.map((tutor, idx) => <TutorCard key={idx} tutor={tutor} ></TutorCard>)
                 }
             </div>
             <div className='flex flex-col md:flex-row py-10 gap-7 justify-center items-center'>
@@ -88,4 +90,4 @@ const ViewAllSessionsHome = () => {
     );
 };
 
-export default ViewAllSessionsHome;
+export default AllTutor;

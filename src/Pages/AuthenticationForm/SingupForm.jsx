@@ -127,7 +127,7 @@ const SingupForm = () => {
                             <option disabled selected>Role</option>
                             <option value="Student">Student</option>
                             <option value="Teacher">Teacher</option>
-                            <option value="Admin">Admin</option>
+                            <option disabled >Admin</option>
                         </select>
                     </div>
 

@@ -27,7 +27,7 @@ const SinginForm = () => {
             if (result) {
                 toast.success('Log in successful');
                 setSinginLoading(false)
-                //navigate('/')
+                navigate('/')
             }
           
         } catch (error) { 

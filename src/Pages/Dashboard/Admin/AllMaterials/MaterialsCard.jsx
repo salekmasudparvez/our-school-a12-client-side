@@ -77,7 +77,6 @@ const MaterialsCard = ({ material,refetch }) => {
                 </div>
                 <div>
                     <h1 className="whitespace-nowrap">{title}</h1>
-                    <p>{sessions.ClassEndDate}</p>
                 </div>
                 <img className="h-40 w-full  object-cover" src={imageUrl} />
                 <a href={materialsUrl} className="btn rounded btn-outline  border border-gray-500 btn-block flex justify-center items-center ">

@@ -12,7 +12,7 @@ const StudentRoutes = ({ children }) => {
     const {loading,user } = useAuth();
     const[role]=useRole()
    
-    if (loading ) {
+    if (loading || !user|| !role) {
         return (<div className="flex justify-center items-center w-full min-h-screen">
             <Hourglass
                 visible={true}
@@ -27,7 +27,7 @@ const StudentRoutes = ({ children }) => {
     }
   
 
-    if (user && role==='Student') {
+    if (role==='Student'&& user) {
         return <>
             {children}
         </>

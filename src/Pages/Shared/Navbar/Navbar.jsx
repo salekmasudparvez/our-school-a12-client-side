@@ -12,7 +12,6 @@ const Navbar = ({ open, setOpen }) => {
     const [role]=useRole();
     const navItems = <>
         <NavItem name="Home" path='/' />
-        <NavItem name="About" path='/about' />
         <NavItem name="Contact" path='/contact' />
         {user?"":<> <NavItem name="Sing up" path='singup' />
         <NavItem name="Sing in" path='singin' /></>

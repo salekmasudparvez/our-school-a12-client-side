@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home/Home";
 import Contact from "../Pages/Contact/Contact";
-import About from "../Pages/About/About";
 import StudySectionDetails from "../Pages/Home/StudySection/StudySectionDetails";
 import SingupForm from "../Pages/AuthenticationForm/SingupForm";
 import SinginForm from "../Pages/AuthenticationForm/SinginForm";
@@ -25,6 +24,8 @@ import AdminRoutes from "./AdminRoutes";
 import TeacherRoutes from "./TeacherRoutes";
 import PrivateRoutes from "./PrivateRoutes";
 import StudentRoutes from "./StudentRoutes";
+import NoneUser from "./NoneUser";
+import ViewAllSessionsHome from "../Pages/Home/StudySection/ViewAllSessionsHome";
 
 
 
@@ -42,15 +43,17 @@ const Routes = createBrowserRouter([
         path: '/contact',
         element: <Contact></Contact>
       },
-      {
-        path: '/about',
-        element: <About></About>
-      },
+      
       {
         path: '/details/:id',
         element:<PrivateRoutes><StudySectionDetails></StudySectionDetails></PrivateRoutes> ,
         loader: ({ params }) => fetch(`http://localhost:5000/session/${params.id}`),
       },
+      {
+        path:'/viewstudysessionshome',
+        element:<PrivateRoutes><ViewAllSessionsHome/></PrivateRoutes>,
+        loader:()=>fetch('http://localhost:5000/sessionsCount')
+      }
     ],
 
   },
@@ -127,11 +130,11 @@ const Routes = createBrowserRouter([
   },
   {
     path: '/singup',
-    element: <SingupForm></SingupForm>,
+    element: <NoneUser><SingupForm></SingupForm></NoneUser>,
   },
   {
     path: 'singin',
-    element: <SinginForm></SinginForm>,
+    element: <NoneUser><SinginForm></SinginForm></NoneUser>,
 
   }
 ]);

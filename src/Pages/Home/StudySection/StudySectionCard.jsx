@@ -15,7 +15,7 @@ const StudySectionCard = ({ session }) => {
     console.log()
 
     return (
-        <div className="mb-10 overflow-hidden relative rounded-lg bg-white shadow-md duration-300 hover:shadow-xl dark:bg-dark-2 ">
+        <div className="mb-10 overflow-hidden flex flex-col justify-center items-center relative rounded-lg bg-white h-full  shadow-md duration-300 hover:shadow-xl dark:bg-dark-2 ">
             {/* <img src={Image} alt="" className="w-full " /> */}
             {isBefore(new Date,ClassEndDate) ?
                 <div className="badge badge-success absolute top-1 right-1 text-white gap-2">
@@ -27,7 +27,7 @@ const StudySectionCard = ({ session }) => {
                     Closed
                 </div>
             }
-            <div className="p-8 text-center sm:p-9 md:p-7 xl:p-9">
+            <div className="p-8  text-center sm:p-9 md:p-7 xl:p-9">
                 <h3>
                     <a className="mb-4 block text-xl font-semibold text-dark hover:text-first dark:text-white sm:text-[22px] md:text-xl lg:text-[22px] xl:text-xl 2xl:text-[22px] uppercase" >
                         {SessionTitle}

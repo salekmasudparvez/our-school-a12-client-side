@@ -47,7 +47,7 @@ const AllStudySession = () => {
                         <th></th>
                         <th>Title</th>
                         <th>Session&apos;s Drescription</th>
-                        <th> {Status==="approved"?<><span className='text-sky-500'>(Update</span> / <span className='text-red-500'>Delete)</span></>:<><span className='text-green-500'>Approved</span> / <span className='text-red-500'>Reject</span></>}</th>
+                        <th> {Status==="approved"?<><span className='text-sky-500'>Update</span> / <span className='text-red-500'>Delete</span></>:<><span className='text-green-500'>Approved</span> / <span className='text-red-500'>Reject</span></>}</th>
                     </tr>
                 </thead>
                 <tbody className=''>

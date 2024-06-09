@@ -2,21 +2,22 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
+import {  isBefore }  from "date-fns";
 
 const StudySectionCard = ({ session }) => {
     const {
        
         SessionDescription,
         SessionTitle,
-        onGoing = true,
+        ClassEndDate,
         _id
     } = session
-    console.log(session)
+    console.log()
 
     return (
         <div className="mb-10 overflow-hidden relative rounded-lg bg-white shadow-md duration-300 hover:shadow-xl dark:bg-dark-2 ">
             {/* <img src={Image} alt="" className="w-full " /> */}
-            {onGoing ?
+            {isBefore(new Date,ClassEndDate) ?
                 <div className="badge badge-success absolute top-1 right-1 text-white gap-2">
                     <Icon icon="icon-park:check-correct" />
                     Ongoing

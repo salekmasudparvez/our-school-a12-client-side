@@ -4,16 +4,37 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useRole from "../../../Hook/useRole";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../../../Hook/useAuth";
+import { Hourglass } from "react-loader-spinner";
+import {
+    useLoaderData,
+} from "react-router-dom";
+import { isBefore } from "date-fns";
 
 
 const StudySectionDetails = () => {
     const { user } = useAuth()
     const [role] = useRole();
-    const [bookLoading, setBookLoading] = useState(false)
+    const [bookLoading, setBookLoading] = useState(false);
+    const [btnValue, setbtnValue] = useState(true);
+    
     const getId = useParams();
+    const session = useLoaderData();
+    // getsingle sessions data
+
+    const { SessionTitle, TutorName, SessionDescription, RegistrationStartDate, RegistrationEndDate, ClassStartDate, ClassEndDate, SessionDuration, RegistrationFee, _id } = session || {};
+
+    useEffect(() =>{
+        if(isBefore(new Date,ClassEndDate)){
+            setbtnValue(false)
+        }else{
+            setbtnValue(true)
+        }
+    },[ClassEndDate])
+    
+
     //it is use for btn disable
     const { refetch, isPending, data: booked } = useQuery({
         queryKey: ['bookedSessions'],
@@ -34,19 +55,8 @@ const StudySectionDetails = () => {
             return data;
         }
     })
-    //console.log(reviews)
-    // getsingle sessions data
 
-    const { data: session } = useQuery({
-        queryKey: ['Session'],
-        queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/session/${getId.id}`)
-            const data = response.data;
-            // setBtnLoading(true)
-            return data;
-        }
-    })
-    const { Image, SessionTitle, TutorName, SessionDescription, RegistrationStartDate, RegistrationEndDate, ClassStartDate, ClassEndDate, SessionDuration, RegistrationFee, _id } = session || {}
+
 
 
 
@@ -80,15 +90,35 @@ const StudySectionDetails = () => {
             })
 
     }
-    if (!user) {
-        return <div className="flex justify-center items-center w-full text-red-500 h-screen"><span className="loading loading-spinner loading-lg"></span></div>
+    const { isLoading: LoadingMaterial, data: Material } = useQuery({
+        queryKey: 'allMaterials',
+        queryFn: async () => {
+            const res = await axios(`http://localhost:5000/singleMaterial/${_id}`)
+            const data = await res.data
+            return data
+        }
+    })
+    console.log(Material)
+
+    if (!user || LoadingMaterial ||isPending) {
+        return (<div className="flex justify-center items-center w-full min-h-screen">
+            <Hourglass
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="hourglass-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                colors={['#306cce', '#72a1ed']}
+            />
+        </div>)
     }
 
     return (
         <section className=" text-second py-[75px]">
             <div className="flex flex-col lg:flex-row justify-end items-center  px-3 max-w-6xl  p-6 mx-auto">
-                <a rel="noopener noreferrer" href="#" className={`${Image?"block":"hidden"}  gap-3 w-full lg:w-1/2 `}>
-                    <img src={Image} alt="" className="object-cover w-full h-64 rounded sm:h-96 lg:col-span-7 " />
+                <a rel="noopener noreferrer" className={`${Material.imageUrl ? "block" : "hidden"}  gap-3 w-full lg:w-1/2`}>
+                    <img src={Material?.imageUrl} alt="" className="object-cover w-full h-full rounded " />
                 </a>
                 <div className="p-6 max-w-xl mx-auto h-full space-y-2 rounded-sm flex flex-col justify-center w-full items-center">
                     <h3 className="text-2xl font-semibold sm:text-4xl">{SessionTitle}</h3>
@@ -107,10 +137,13 @@ const StudySectionDetails = () => {
                             <p className="text-xs text-red-500">Registration fee :${RegistrationFee}</p>
                         </div>
 
-
-
-
-                        <div className={`${role === "Teacher" || role === 'Admin' ? "hidden" : ""}`}><button onClick={() => handleBook(_id)} className={`${booked && 'btn-disabled'} ${isPending && "btn-disabled"} btn btn-block btn-outline hover:bg-first hover:text-white rounded-sm`}>{bookLoading ? <Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" /> : "Book Now"}</button></div>
+                       
+                          { Material && <div className="whitespace-nowrap flex justify-between px-2 py-1 items-center gap-2 bg-gradient-to-r hover:from-sky-500 from-sky-300 hover:via-sky-300  via-sky-500 hover:to-sky-500 to-sky-300 text-white rounded-full">
+                                <div className="flex justify-start text-xs md:text-base items-start gap-2" ><Icon className="text-xl" icon="fluent:document-pdf-32-regular"></Icon>Resources.pdf </div>
+                                <Icon icon="material-symbols:lock"></Icon>
+                            </div>}
+                       
+                        <div className={`${role === "Teacher" || role === 'Admin' ? "hidden" : ""}`}><button disabled={btnValue} onClick={() => handleBook(_id)} className={`${booked && 'btn-disabled'} ${isPending &&  "btn-disabled"} btn btn-block btn-outline hover:bg-first hover:text-white rounded-sm`}>{bookLoading ? <Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" /> : "Book Now"}</button></div>
 
                     </div>
                 </div>

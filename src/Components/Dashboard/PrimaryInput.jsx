@@ -1,12 +1,13 @@
 
 import { PropTypes } from 'prop-types';
 
-const PrimaryInput = ({name,type,text}) => {
+const PrimaryInput = ({name,type,text,defaultValue=""}) => {
     return (
         <div className="relative mb-6" data-twe-input-wrapper-init>
             <input
                 name={name}
                 type={type}
+                defaultValue={defaultValue}
                 className="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                  placeholder=" "/>
                
@@ -21,7 +22,8 @@ PrimaryInput.propTypes={
     name:PropTypes.string,
     type:PropTypes.string,
     text:PropTypes.string,
-    value:PropTypes.number
+    value:PropTypes.number,
+    defaultValue:PropTypes.string,
 }
 
 export default PrimaryInput;

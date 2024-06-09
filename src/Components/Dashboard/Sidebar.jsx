@@ -27,7 +27,7 @@ const Sidebar = () => {
                         <SidebarItems name="View all-sessions" path="/dashboard/tutor/ViewAllSessions" icon="ep:view" />
                         <SidebarItems name="Upload materials" path='/dashboard/tutor/UploadMaterials' icon="material-symbols:upload" />
                         <SidebarItems name="All materials" path="/dashboard/tutor/allMaterials" icon="bx:file" />
-                        <SidebarItems name="All notes" path="/dashboard/studymaterials" icon="hugeicons:note" />
+                       
                     </>
                 }
                 {role === 'Admin' &&

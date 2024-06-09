@@ -5,11 +5,11 @@ import Tutors from "./Tutors/Tutors";
 
 const Home = () => {
     return (
-        <div>
+        <>
             <Banner></Banner>
             <StudySection></StudySection>
             <Tutors/>
-        </div>
+        </>
     );
 };
 

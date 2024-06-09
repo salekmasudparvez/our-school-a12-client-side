@@ -18,6 +18,7 @@ const AllMaterials = () => {
             return data
         }
     })
+   
     if(!user || isLoading){
         return (<div className="flex justify-center items-center w-full min-h-screen">
             <Hourglass

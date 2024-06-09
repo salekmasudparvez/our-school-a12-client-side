@@ -5,14 +5,34 @@ import useAuth from "../../../../Hook/useAuth";
 import { useState } from "react";
 import PrimaryInput from "../../../../Components/Dashboard/PrimaryInput";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import HeaderTitle from "../../../../Components/HeaderTitle";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 
 const AllStudySessionUpdate = () => {
     const {user} =useAuth();
+    const updateSessionsData = useLoaderData();
+    const navigatte = useNavigate()
+    const {
+        SessionTitle,
+        TutorName,
+        SessionDescription,
+        RegistrationStartDate,
+        RegistrationEndDate,
+        SessionDuration,
+        ClassStartDate,
+        ClassEndDate,
+        RegistrationFee,
+        Status,
+        TutorEmail,
+        _id
+    }=updateSessionsData
+    //console.log(updateSessionsData)
     const[loadingSession,setLoadingSession]= useState(false)
 
-    const handleCreateSessiom = async(e) => {
+    const handleUpdateSessiom = async(e) => {
         e.preventDefault();
+       
         setLoadingSession(true)
         const sessionTitle = e.target.sessionTitle.value;
         const tutorName = e.target.tutorName.value;
@@ -25,7 +45,14 @@ const AllStudySessionUpdate = () => {
         const registrationFee = e.target.registrationFee.value;
         const status = e.target.status.value;
         const tutorEmail = e.target.tutorEmail.value;
-        const createSessionData={
+        if(status!=="approved"){
+            toast.error("You can't update else ststus is approved");
+            navigatte('/dashboard/admin/allstudysession')
+            setLoadingSession(false)
+            return;
+          }
+        const updateSessionData={
+            id:_id,
             SessionTitle:sessionTitle,
             TutorName:tutorName,
             SessionDescription:sessionDescription,
@@ -38,18 +65,18 @@ const AllStudySessionUpdate = () => {
             Status:status,
             TutorEmail:tutorEmail,
         }
-        
+        //console.log(updateSessionData)
 
         try {
-            await axios.post('http://localhost:5000/pendingSessions', createSessionData)
-            .then(res=>{
+            const res = await axios.patch('http://localhost:5000/sessionsDetails', updateSessionData)
+            
                 if(res){
-                    // console.log(res)
+                    console.log(res)
                     setLoadingSession(false)
-                    toast.success('Session created successfully')
-                    // navigate('/dashboard/notes')
+                    toast.success('Session updated successfully')
+                    navigatte('/dashboard/admin/allstudysession')
                 }
-            })
+                setLoadingSession(false)
         } catch (error) {
             toast.error(error)
             setLoadingSession(false)
@@ -70,15 +97,16 @@ const AllStudySessionUpdate = () => {
         </div>)
     }
     return (
-        <div>
-            <form onSubmit={handleCreateSessiom}>
+        <div className="space-y-4 p-4">
+            <HeaderTitle heading="Update"/>
+            <form onSubmit={handleUpdateSessiom}>
                 <div className="grid grid-cols-2 gap-4">
-                    <PrimaryInput name="sessionTitle" type="text" text="Session Title" />
+                    <PrimaryInput name="sessionTitle" defaultValue={SessionTitle} type="text" text="Session Title" />
                     <div className="relative mb-6" data-twe-input-wrapper-init>
                         <input
                             name='tutorName'
                             type="text"
-                            value={user?.displayName}
+                            value={TutorName}
                             readOnly
                             className="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                             placeholder=" " />
@@ -90,7 +118,7 @@ const AllStudySessionUpdate = () => {
                     </div>
                 </div>
                 <div >
-                    <PrimaryInput name="sessionDescription" type="text" text="Session Description" />
+                    <PrimaryInput name="sessionDescription" defaultValue={SessionDescription} type="text" text="Session Description" />
                 </div>
                 <div className="flex w-full md:flex-row flex-col">
                     <div className="my-auto">
@@ -98,12 +126,12 @@ const AllStudySessionUpdate = () => {
                     </div>
                     <div className="flex my-auto px-3 items-center justify-between w-full">
 
-                        <input name="registrationStartDate" className="px-2 w-full focus:outline-none border  border-b-second rounded" type="date" />
+                        <input name="registrationStartDate" defaultValue={RegistrationStartDate} className="px-2 w-full focus:outline-none border  border-b-second rounded" type="date" />
 
 
                         <div className="divider divider-horizontal">To</div>
 
-                        <input name="registrationEndtDate" className="px-2 w-full  focus:outline-none border border-b-second rounded" type="date" />
+                        <input name="registrationEndtDate" defaultValue={RegistrationEndDate} className="px-2 w-full  focus:outline-none border border-b-second rounded" type="date" />
 
                     </div>
                 </div>
@@ -113,12 +141,12 @@ const AllStudySessionUpdate = () => {
                     </div>
                     <div className="flex my-auto px-3 items-center justify-between w-full">
 
-                        <input name="classStartDate" className="px-2 w-full focus:outline-none border  border-b-second rounded" type="date" />
+                        <input name="classStartDate" defaultValue={ClassStartDate} className="px-2 w-full focus:outline-none border  border-b-second rounded" type="date" />
 
 
                         <div className="divider divider-horizontal">To</div>
 
-                        <input name="classEndDate" className="px-2 w-full  focus:outline-none border border-b-second rounded" type="date" />
+                        <input name="classEndDate" defaultValue={ClassEndDate} className="px-2 w-full  focus:outline-none border border-b-second rounded" type="date" />
 
                     </div>
                 </div>
@@ -127,6 +155,7 @@ const AllStudySessionUpdate = () => {
                         <input
                             name='sessionDuration'
                             type="number"
+                            defaultValue={SessionDuration}
                             className="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                             placeholder=" " />
 
@@ -139,8 +168,7 @@ const AllStudySessionUpdate = () => {
                         <input
                             name='registrationFee'
                             type="number"
-                            readOnly
-                            value="0"
+                            defaultValue={RegistrationFee}
                             className="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                             placeholder=" " />
 
@@ -156,7 +184,7 @@ const AllStudySessionUpdate = () => {
                         <input
                             name="status"
                             type="text"
-                            value="pending"
+                            defaultValue={Status}
                             readOnly
                             className="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                             placeholder=" " />
@@ -170,7 +198,7 @@ const AllStudySessionUpdate = () => {
                         <input
                             name="tutorEmail"
                             type="text"
-                            value={user?.email}
+                            value={TutorEmail}
                             readOnly
                             className="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                             placeholder=" " />
@@ -185,7 +213,7 @@ const AllStudySessionUpdate = () => {
                 <button
                     type="submit"
                     className="btn btn-block bg-first text-white hover:text-black">
-                    {loadingSession ? <Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" /> : "Create Session"}
+                    {loadingSession ? <Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" /> : "Update Session"}
                 </button>
             </form>
         </div>

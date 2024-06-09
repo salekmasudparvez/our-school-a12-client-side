@@ -27,7 +27,7 @@ const SinginForm = () => {
             if (result) {
                 toast.success('Log in successful');
                 setSinginLoading(false)
-                navigate('/')
+                //navigate('/')
             }
           
         } catch (error) { 
@@ -64,7 +64,8 @@ const SinginForm = () => {
     return (
 
         <div className="hero-content  min-h-screen w-full gap-0  p-0 flex-col lg:flex-row-reverse">
-            <div className="text-center hidden  lg:flex p-4  bg-[url('https://i.ibb.co/MhWJwLX/freepik-export-20240601155805-J2-CM.jpg')] bg-no-repeat bg-contain bg-center h-screen w-1/2 rounded-md   lg:text-left">
+            <div className="text-center hidden  lg:flex   w-1/2 rounded-md   lg:text-left">
+            <img className="w-full" src="https://i.ibb.co/ZxZtCgp/back-to-school-night.jpg" />
                 <button className="text-xl btn hover:bg-first absolute top-1 right-1 ">
                     <Link className="flex justify-center gap-1 items-center text-gray-700 hover:text-white" to='/'>
                         <Icon icon="grommet-icons:logout" />

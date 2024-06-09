@@ -2,7 +2,7 @@ import { ParallaxBanner } from 'react-scroll-parallax';
 const Banner = () => {
     const background = {
         image:
-            'https://img.freepik.com/free-photo/white-cloud-blue-sky_74190-2381.jpg',
+            'https://i.ibb.co/mtDqhKy/bannerbg.jpg',
         translateY: [0, 50],
         opacity: [1, 0.3],
         scale: [1.05, 1, 'easeOutCubic'],

@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/Firebase";
 // import axios from 'axios';
 import { PropTypes } from 'prop-types';
+import axios from "axios";
 
 
 export const AuthContext = createContext(null);
@@ -50,17 +51,27 @@ const AuthProvider = ({children}) => {
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, currentUser=>{
             setUser(currentUser);
-            // const userEmail = currentUser?.email || user?.email;
-            // const loggedUser = { email: userEmail };
+            const userInfo = { email: currentUser.email };
             setLoading(false)
-        //    if(!currentUser){
-        //         axios.post('https://hotel-server-kappa.vercel.app/logout', loggedUser, {
-        //             withCredentials: true
-        //         })
-        //             .then(res => {
-        //                 // console.log(res.data);
-        //             })
-        //     }
+            if (currentUser) {
+                axios.post('http://localhost:5000/jwt', userInfo, {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => {
+                    if (res.data.token) {
+                        console.log(res);
+                        localStorage.setItem('accessToken', res.data.token);
+                    }
+                })
+                .catch(err => {
+                    console.error('Error during axios request:', err);
+                });
+            } else {
+                localStorage.removeItem('accessToken');
+            }
            
         })
         return ()=> unsubscribe()

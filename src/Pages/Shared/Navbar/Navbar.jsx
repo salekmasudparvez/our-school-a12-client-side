@@ -26,7 +26,7 @@ const Navbar = ({ open, setOpen }) => {
     </div>
     return (
         <>
-            <nav className="flex bg-white bg-opacity-40 fixed top-0 z-20 w-full border gap-4 md:justify-between items-center min-h-[74px] mx-auto md:px-10 px-4">
+            <nav className="flex bg-white bg-opacity-40 fixed top-0 z-20 w-full border gap-4 justify-between items-center min-h-[74px] mx-auto md:px-10 px-4">
                 {/* hambarger */}
                 <div onClick={() => setOpen(!open)} className='  md:hidden w-10 text-2xl'>
                     {open ? <Icon icon="akar-icons:cross" /> : <Icon icon="fe:bar" />}

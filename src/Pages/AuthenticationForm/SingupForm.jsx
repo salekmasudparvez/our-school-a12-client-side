@@ -43,35 +43,36 @@ const SingupForm = () => {
 
 
     }
-    const handleGoogleSingUp =  () => {
+    const handleGoogleSingUp = () => {
 
         creatUserGoogle()
-        .then(res=>{
-            console.log(res)
-            const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
-             axios.post('http://localhost:5000/users', newUserData)
-            toast.success('Successfully created Account')
-            navigate('/')
-        })
-       
+            .then(res => {
+                console.log(res)
+                const newUserData = { name: res?.user?.displayName, email: res?.user?.email, role: "Student" };
+                axios.post('http://localhost:5000/users', newUserData)
+                toast.success('Successfully created Account')
+                navigate('/')
+            })
+
     }
     const handleGithubSingUp = async () => {
 
-        
+
         creatUserGithub()
-        .then(res=>{
-            console.log(res)
-            const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
-             axios.post('http://localhost:5000/users', newUserData)
-            toast.success('Successfully created Account')
-            // navigate('/')
-        })
+            .then(res => {
+                console.log(res)
+                const newUserData = { name: res?.user?.displayName, email: res?.user?.email, role: "Student" };
+                axios.post('http://localhost:5000/users', newUserData)
+                toast.success('Successfully created Account')
+                // navigate('/')
+            })
 
     }
     return (
 
-        <div className="hero-content  min-h-screen w-full gap-0  p-0 flex-col lg:flex-row">
-            <div className="text-center hidden lg:flex p-4  bg-[url('https://i.ibb.co/MhWJwLX/freepik-export-20240601155805-J2-CM.jpg')] bg-no-repeat bg-contain bg-center h-screen w-1/2 rounded-md   lg:text-left">
+        <div className="hero-content  min-h-screen w-full items-start gap-0  p-0 flex-col lg:flex-row">
+            <div className="text-center hidden lg:flex w-1/2 rounded-md   lg:text-left">
+                <img className=" w-full" src="https://i.ibb.co/jL79g0F/lovely-hand-drawn-education-cocept.png" alt="book" />
                 <button className="text-xl absolute top-1 left-1 btn hover:bg-first  ">
                     <Link className="flex justify-center gap-1 items-center text-gray-700 hover:text-white" to='/'>
                         <Icon icon="grommet-icons:logout" />

@@ -64,7 +64,7 @@ const MaterialsCard = ({ material,refetch }) => {
 
     return (
         <>
-            <div className={`w-72 space-y-2 p-8 ${isBefore(sessions.ClassEndDate, new Date) && 'bg-error bg-opacity-20'}  shadow-md border relative`}>
+            <div className={`w-72 z-0 space-y-2 p-8 ${isBefore(sessions.ClassEndDate, new Date) && 'bg-error bg-opacity-20'}  shadow-md border relative`}>
                 {isBefore(sessions.ClassEndDate, new Date) && <div className=" absolute top-9 bg-opacity-60 right-1 badge badge-error">Outdated</div>}
                 <div className=" absolute top-1 right-1 text-gray-500 text-xl">
                     <Icon onClick={() => sesOpen(!open)} className="text-xl" icon="mdi-light:dots-vertical" />
@@ -86,7 +86,7 @@ const MaterialsCard = ({ material,refetch }) => {
                 </a>
 
             </div>
-            <div className={`absolute top-0 w-full px-3 min-h-screen  ${openModal ? 'flex' : 'hidden'} backdrop-blur-md justify-center items-center`}>
+            <div className={`absolute z-50 top-0 w-full px-3 min-h-screen  ${openModal ? 'flex' : 'hidden'} backdrop-blur-md justify-center items-center`}>
                 <div className="flex flex-col lg:max-w-xl items-center md:max-w-lg max-w-md w-full gap-2 p-6 rounded-md shadow-md bg-gray-200 text-second">
                     <h2 className="text-xl font-semibold leading-tight text-center tracking-wide">Are you sure?</h2>
                     <p className='text-center'>You won&apos;t be able to revert this!</p>

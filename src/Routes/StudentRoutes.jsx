@@ -4,11 +4,13 @@ import { Navigate } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 import { Hourglass } from "react-loader-spinner";
 import { PropTypes } from 'prop-types';
+import useRole from "../Hook/useRole";
 
 
 
-const PrivateRoutes = ({ children }) => {
+const StudentRoutes = ({ children }) => {
     const {loading,user } = useAuth();
+    const[role]=useRole()
    
     if (loading ) {
         return (<div className="flex justify-center items-center w-full min-h-screen">
@@ -25,7 +27,7 @@ const PrivateRoutes = ({ children }) => {
     }
   
 
-    if (user) {
+    if (user && role==='Student') {
         return <>
             {children}
         </>
@@ -33,7 +35,7 @@ const PrivateRoutes = ({ children }) => {
     return <Navigate to='/' replace={true}></Navigate>
 
 };
-PrivateRoutes.propTypes={
+StudentRoutes.propTypes={
     children:PropTypes.node.isRequired,
 }
-export default PrivateRoutes;
+export default StudentRoutes;

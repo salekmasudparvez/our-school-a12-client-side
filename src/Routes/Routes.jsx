@@ -23,6 +23,8 @@ import ViewAllMaterials from "../Pages/Dashboard/Admin/AllMaterials/ViewAllMater
 import AllStudySessionUpdate from "../Pages/Dashboard/Admin/AllStudySession/AllStudySessionUpdate";
 import AdminRoutes from "./AdminRoutes";
 import TeacherRoutes from "./TeacherRoutes";
+import PrivateRoutes from "./PrivateRoutes";
+import StudentRoutes from "./StudentRoutes";
 
 
 
@@ -46,7 +48,7 @@ const Routes = createBrowserRouter([
       },
       {
         path: '/details/:id',
-        element: <StudySectionDetails></StudySectionDetails>,
+        element:<PrivateRoutes><StudySectionDetails></StudySectionDetails></PrivateRoutes> ,
         loader: ({ params }) => fetch(`http://localhost:5000/session/${params.id}`),
       },
     ],
@@ -54,32 +56,32 @@ const Routes = createBrowserRouter([
   },
   {
     path: 'dashboard',
-    element: <DashboardLayout></DashboardLayout>,
+    element: <StudentRoutes><DashboardLayout></DashboardLayout></StudentRoutes>,
     children: [
       {
         path: '/dashboard',
-        element: <BookedSession></BookedSession>
+        element: <StudentRoutes><BookedSession></BookedSession></StudentRoutes>
       },
       {
         path: '/dashboard/createnote',
-        element: <CreateNotes></CreateNotes>
+        element:<StudentRoutes> <CreateNotes></CreateNotes></StudentRoutes>
       },
       {
         path: '/dashboard/notes',
-        element: <Notes></Notes>
+        element: <StudentRoutes><Notes></Notes></StudentRoutes>
       },
       {
         path: '/dashboard/studymaterials',
-        element: <StudyMaterials></StudyMaterials>
+        element: <StudentRoutes><StudyMaterials></StudyMaterials></StudentRoutes>,
       },
       {
         path: '/dashboard/reviews/:id',
-        element: <Reviews></Reviews>,
+        element:  <StudentRoutes><Reviews></Reviews></StudentRoutes>,
         loader: ({ params }) => fetch(`http://localhost:5000/reviews/${params.id}`),
       },
       {
         path: '/dashboard/notes/:id',
-        element: <UpdateNotes></UpdateNotes>,
+        element: <StudentRoutes><UpdateNotes></UpdateNotes></StudentRoutes>,
         loader: ({ params }) => fetch(`http://localhost:5000/noteUpdate/${params.id}`),
       },
 

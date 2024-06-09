@@ -98,7 +98,7 @@ const StudySectionDetails = () => {
             return data
         }
     })
-    console.log(Material)
+    //console.log(Material)
 
     if (!user || LoadingMaterial ||isPending) {
         return (<div className="flex justify-center items-center w-full min-h-screen">
@@ -113,7 +113,7 @@ const StudySectionDetails = () => {
             />
         </div>)
     }
-
+ 
     return (
         <section className=" text-second py-[75px]">
             <div className="flex flex-col lg:flex-row justify-end items-center  px-3 max-w-6xl  p-6 mx-auto">
@@ -134,7 +134,7 @@ const StudySectionDetails = () => {
                         </div>
                         <div className="flex justify-between">
                             <p className="text-xs text-gray-500">Session Duration :{SessionDuration}</p>
-                            <p className="text-xs text-red-500">Registration fee :${RegistrationFee}</p>
+                            <p className="text-xs text-red-500">Registration fee :{RegistrationFee !==0 && <span>$</span>}{RegistrationFee===0?'Free':RegistrationFee}</p>
                         </div>
 
                        

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Logo from "../Navbar/Logo";
 
 
@@ -6,22 +7,15 @@ const Footer = () => {
         <footer className="footer p-10 bg-sky-700 text-white">
         <aside>
          <div className="bg-white rounded-md"><Logo></Logo></div>
-          <p>Providing reliable tech since 1992</p>
+          <p>Providing reliable tech since 2023</p>
         </aside> 
         <nav>
           <h6 className="footer-title">Services</h6> 
-          <a className="link link-hover">Branding</a>
-          <a className="link link-hover">Design</a>
-          <a className="link link-hover">Marketing</a>
-          <a className="link link-hover">Advertisement</a>
+          <Link to="/" className="link link-hover">Home</Link>
+          <Link to="/contact" className="link link-hover">Contact</Link>
+
         </nav> 
-        <nav>
-          <h6 className="footer-title">Company</h6> 
-          <a className="link link-hover">About us</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Jobs</a>
-          <a className="link link-hover">Press kit</a>
-        </nav> 
+        
         <nav>
           <h6 className="footer-title">Legal</h6> 
           <a className="link link-hover">Terms of use</a>

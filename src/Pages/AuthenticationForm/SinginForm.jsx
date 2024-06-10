@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from "../../Hook/useAuth";
 import axios from "axios";
 
@@ -10,7 +10,6 @@ const SinginForm = () => {
     const { user, signInWithPassword,creatUserGoogle,creatUserGithub } = useAuth();
     const [singinLoading, setSinginLoading] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation()
 
     const handleSingin =async (e) => {
         e.preventDefault();
@@ -19,7 +18,7 @@ const SinginForm = () => {
         const email = form.floating_email.value;
         const password = form.floating_password.value;
 
-        if (user?.email === email) {
+        if (user?.email) {
             return toast.error("User already exist")
         }
 
@@ -28,12 +27,13 @@ const SinginForm = () => {
             if (result) {
                 toast.success('Log in successful');
                 setSinginLoading(false)
-                navigate(`${location.state.pathname ? location.state.pathname :'/'}`)
+                navigate('/')
             }
           
         } catch (error) { 
             setSinginLoading(false)
-            toast.error('Invaild email or password')
+            toast.error('Invaild email or password');
+            console.log(error)
 
         }
     }
@@ -45,7 +45,7 @@ const SinginForm = () => {
             const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
              axios.post('https://server-study.vercel.app/users', newUserData)
             toast.success('Successfully created Account')
-            navigate(`${location.state.pathname ? location.state.pathname :'/'}`)
+            navigate('/')
         })
        
     }
@@ -58,7 +58,7 @@ const SinginForm = () => {
             const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
              axios.post('https://server-study.vercel.app/users', newUserData)
             toast.success('Successfully created Account')
-            navigate(`${location.state.pathname ? location.state.pathname :'/'}`)
+            navigate('/')
         })
 
     }

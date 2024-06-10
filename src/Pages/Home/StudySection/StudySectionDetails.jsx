@@ -64,10 +64,6 @@ const StudySectionDetails = () => {
             return data;
         }
     })
-    console.log(reviewAvg)
-
-
-
 
 
     //post data to bookedsession

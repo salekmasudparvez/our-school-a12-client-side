@@ -27,6 +27,7 @@ import StudentRoutes from "./StudentRoutes";
 import NoneUser from "./NoneUser";
 import ViewAllSessionsHome from "../Pages/Home/StudySection/ViewAllSessionsHome";
 import AllTutor from "../Pages/Home/Tutors/AllTutor";
+import Error from "../Components/Error";
 
 
 
@@ -35,6 +36,7 @@ const Routes = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement:<Error></Error>,
     children: [
       {
         path: '/',
@@ -65,6 +67,7 @@ const Routes = createBrowserRouter([
   },
   {
     path: 'dashboard',
+    errorElement:<Error></Error>,
     element: <PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
     children: [
       {
@@ -97,6 +100,7 @@ const Routes = createBrowserRouter([
       // tutor
       {
         path: '/dashboard/tutor',
+        errorElement:<Error></Error>,
         element: <TeacherRoutes><CreateSession></CreateSession>  </TeacherRoutes>,
       },
       {
@@ -115,6 +119,7 @@ const Routes = createBrowserRouter([
       //admin
       {
         path: '/dashboard/admin',
+        errorElement:<Error></Error>,
         element: <AdminRoutes> <AllUsers></AllUsers></AdminRoutes>,
       },
       {

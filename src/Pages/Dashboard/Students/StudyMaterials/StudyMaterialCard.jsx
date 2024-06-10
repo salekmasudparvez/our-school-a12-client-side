@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { PropTypes } from 'prop-types';
 
 const StudyMaterialCard = ({material}) => {
     const { title, imageUrl, materialsUrl } = material || {};
@@ -16,5 +17,7 @@ const StudyMaterialCard = ({material}) => {
         </div>
     );
 };
-
+StudyMaterialCard.propTypes={
+    material:PropTypes.object.isRequired,
+}
 export default StudyMaterialCard;

@@ -39,7 +39,7 @@ const Navbar = ({ open, setOpen }) => {
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img alt="Unknown" src={user?.photoURL?user?.photoURL:"https://i.ibb.co/Qr9pWXJ/unknown.webp"} />
+                                <img alt="Unknown" src={user?.photoURL?user?.photoURL:"https://i.ibb.co/t3n0XR7/240.jpg"} />
                             </div>
                         </div>
                         {dashboardItem}

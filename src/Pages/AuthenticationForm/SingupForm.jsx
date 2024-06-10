@@ -30,11 +30,11 @@ const SingupForm = () => {
             return toast.error("User already exist")
         }
 
-        const newUserData = { name, email, role };
+
         const result = await creatUserPassword(email, password);
         await updateUserProfile(name);
         setUser({ ...result?.user, displayName: name })
-
+        const newUserData = { name, email, role ,image:user?.photoURL||"https://i.ibb.co/t3n0XR7/240.jpg" };
         await axios.post('https://server-study.vercel.app/users', newUserData)
 
         toast.success('Successfully created Account')

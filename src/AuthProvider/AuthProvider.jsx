@@ -15,16 +15,7 @@ const AuthProvider = ({children}) => {
     const creatUserGoogle =()=>{
         setLoading(true)
        return signInWithPopup(auth,providerGoogle)
-    //    .then(result=>{
-    //     console.log(result);
-    //     const loggedUser = {email:result.user?.email}
-    //     if(result){
-    //         axios.post('https://hotel-server-kappa.vercel.app/jwt', loggedUser, { withCredentials: true })
-    //                 .then(res => {
-    //                     console.log('token response', res.data);
-    //                 })
-    //      }
-    // })
+    
     }
     const providerGithub = new GithubAuthProvider();
     const creatUserGithub =()=>{
@@ -37,7 +28,7 @@ const AuthProvider = ({children}) => {
     }
 
    const signInWithPassword =( email, password)=>{
-    // setLoading(true)
+    setLoading(true)
     return signInWithEmailAndPassword(auth, email, password)
     
    }
@@ -50,9 +41,10 @@ const AuthProvider = ({children}) => {
     }
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, currentUser=>{
-            setUser(currentUser);
-            const userInfo = { email: currentUser.email };
             setLoading(false)
+            setUser(currentUser);
+            const userInfo = { email: currentUser?.email||user?.email };
+            
             if (currentUser) {
                 axios.post('https://server-study.vercel.app/jwt', userInfo, {
                     withCredentials: true,
@@ -75,7 +67,7 @@ const AuthProvider = ({children}) => {
            
         })
         return ()=> unsubscribe()
-    },[]);
+    },[user?.email]);
     const updateUserProfile = (name) => {
         return updateProfile(auth.currentUser, {
           displayName: name,

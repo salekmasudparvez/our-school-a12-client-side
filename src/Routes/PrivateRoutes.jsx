@@ -9,7 +9,6 @@ import { PropTypes } from 'prop-types';
 
 const PrivateRoutes = ({ children }) => {
     const {loading,user } = useAuth();
-
     if (loading ) {
         return (<div className="flex justify-center items-center w-full min-h-screen">
             <Hourglass
@@ -27,9 +26,9 @@ const PrivateRoutes = ({ children }) => {
         return <>
             {children}
         </>
-    }else{
-        return <Navigate to='/singup' replace={true}></Navigate>
     }
+        return <Navigate to='/singup' replace={true}></Navigate>
+    
     
     
 

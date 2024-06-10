@@ -28,7 +28,7 @@ const Banner = () => {
 
     const foreground = {
         image:
-            'https://i.ibb.co/MMmvQNz/banner.png',
+            'https://i.ibb.co/2PHwPRT/banner-1.png',
         translateY: [0, 15],
         scale: [1, 1.1, 'easeOutCubic'],
         shouldAlwaysCompleteAnimation: true,
@@ -44,10 +44,10 @@ const Banner = () => {
     };
 
     return (
-        <div>
+        <div className='h-[400px] md:h-full object-cover'>
             <ParallaxBanner
                 layers={[background, headline, foreground, gradientOverlay]}
-                className="aspect-[2/1] py-32 bg-gray-900"
+                className="aspect-[2/1] py-32 bg-gray-900 h-full"
             />
         </div>
     );

@@ -43,7 +43,7 @@ const AuthProvider = ({children}) => {
         const unsubscribe = onAuthStateChanged(auth, currentUser=>{
             setLoading(false)
             setUser(currentUser);
-            const userInfo = { email: currentUser?.email||user?.email };
+            const userInfo = { email: currentUser?.email||user?.email||user?.displayName };
             
             if (currentUser) {
                 axios.post('https://server-study.vercel.app/jwt', userInfo, {
@@ -54,7 +54,7 @@ const AuthProvider = ({children}) => {
                 })
                 .then(res => {
                     if (res.data.token) {
-                        console.log(res);
+                        //console.log(res);
                         localStorage.setItem('accessToken', res.data.token);
                     }
                 })
@@ -67,7 +67,7 @@ const AuthProvider = ({children}) => {
            
         })
         return ()=> unsubscribe()
-    },[user?.email]);
+    },[user?.email,user?.displayName]);
     const updateUserProfile = (name) => {
         return updateProfile(auth.currentUser, {
           displayName: name,

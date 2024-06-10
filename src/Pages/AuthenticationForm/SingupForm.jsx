@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import useAuth from './../../Hook/useAuth';
 import axios from "axios";
@@ -10,7 +10,9 @@ const SingupForm = () => {
     const { creatUserPassword, updateUserProfile, creatUserGoogle, setUser, user, creatUserGithub } = useAuth()
     const [role, setRole] = useState("null");
     const navigate = useNavigate()
-    const [singupLoading, setSingupLoading] = useState(false)
+    const [singupLoading, setSingupLoading] = useState(false);
+    const location = useLocation();
+    // console.log(location.state.pathname)
 
     const handleSingup = async (e) => {
         e.preventDefault()
@@ -39,7 +41,7 @@ const SingupForm = () => {
 
         toast.success('Successfully created Account')
         setSingupLoading(false)
-        navigate('/')
+        navigate(`${location.state.pathname ? location.state.pathname :'/'}`)
 
 
     }
@@ -51,7 +53,7 @@ const SingupForm = () => {
                 const newUserData = { name: res?.user?.displayName, email: res?.user?.email, role: "Student" };
                 axios.post('https://server-study.vercel.app/users', newUserData)
                 toast.success('Successfully created Account')
-                navigate('/')
+                navigate(`${location.state.pathname ? location.state.pathname :'/'}`)
             })
 
     }
@@ -64,7 +66,7 @@ const SingupForm = () => {
                 const newUserData = { name: res?.user?.displayName, email: res?.user?.email, role: "Student" };
                 axios.post('https://server-study.vercel.app/users', newUserData)
                 toast.success('Successfully created Account')
-                // navigate('/')
+                navigate(`${location.state.pathname ? location.state.pathname :'/'}`)
             })
 
     }

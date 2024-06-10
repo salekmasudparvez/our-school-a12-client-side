@@ -134,7 +134,7 @@ const StudySectionDetails = () => {
                     <h3 className="text-2xl font-semibold sm:text-4xl">{SessionTitle}</h3>
                     <div className="flex justify-between w-full items-center">
                         <div className="text-sm text-gray-400">Tutor:{TutorName}</div>
-                        <span className="text-yellow-500 flex justify-center items-center gap-2">Avarage Rating:{reviewAvg?reviewAvg[0].averageRating:'0'}<Icon icon="teenyicons:star-solid" /></span> </div>
+                        <span className="text-yellow-500 flex justify-center items-center gap-2">Avarage Rating:{reviewAvg[0]?.averageRating?reviewAvg[0]?.averageRating:'0'}<Icon icon="teenyicons:star-solid" /></span> </div>
                     <p>{SessionDescription}</p>
                     <div className="border w-full p-2 rounded space-y-4">
                         <p className="text-xs text-gray-500">Duration Of Registration :({RegistrationStartDate}-{RegistrationEndDate}) </p>
@@ -153,7 +153,8 @@ const StudySectionDetails = () => {
                                 <Icon icon="material-symbols:lock"></Icon>
                             </div>}
                        
-                        <div className={`${role === "Teacher" || role === 'Admin' ? "hidden" : ""}`}><button disabled={btnValue} onClick={() => handleBook(_id)} className={`${booked && 'btn-disabled'} ${isPending &&  "btn-disabled"} btn btn-block btn-outline hover:bg-first hover:text-white rounded-sm`}>{bookLoading ? <Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" /> : "Book Now"}</button></div>
+                        <div className={`${role === "Teacher" || role === 'Admin' ? "hidden" : ""}`}>
+                            <button disabled={btnValue} onClick={() => handleBook(_id)} className={`${booked && 'btn-disabled'} ${isPending &&  "btn-disabled"} btn btn-block btn-outline hover:bg-first hover:text-white rounded-sm`}>{btnValue?"Registration closed":bookLoading ? <Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" /> : "Book Now"}</button></div>
 
                     </div>
                 </div>

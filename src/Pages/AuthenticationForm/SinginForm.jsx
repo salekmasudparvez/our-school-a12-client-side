@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from "../../Hook/useAuth";
 import axios from "axios";
 
@@ -9,7 +9,8 @@ const SinginForm = () => {
     const [pass, setPass] = useState("password");
     const { user, signInWithPassword,creatUserGoogle,creatUserGithub } = useAuth();
     const [singinLoading, setSinginLoading] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation()
 
     const handleSingin =async (e) => {
         e.preventDefault();
@@ -27,7 +28,7 @@ const SinginForm = () => {
             if (result) {
                 toast.success('Log in successful');
                 setSinginLoading(false)
-                navigate('/')
+                navigate(`${location.state.pathname ? location.state.pathname :'/'}`)
             }
           
         } catch (error) { 
@@ -44,7 +45,7 @@ const SinginForm = () => {
             const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
              axios.post('https://server-study.vercel.app/users', newUserData)
             toast.success('Successfully created Account')
-            navigate('/')
+            navigate(`${location.state.pathname ? location.state.pathname :'/'}`)
         })
        
     }
@@ -57,7 +58,7 @@ const SinginForm = () => {
             const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
              axios.post('https://server-study.vercel.app/users', newUserData)
             toast.success('Successfully created Account')
-            navigate('/')
+            navigate(`${location.state.pathname ? location.state.pathname :'/'}`)
         })
 
     }

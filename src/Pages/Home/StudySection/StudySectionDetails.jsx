@@ -55,6 +55,16 @@ const StudySectionDetails = () => {
             return data;
         }
     })
+    const { data: reviewAvg } = useQuery({
+        queryKey: ['reviewAvg'],
+        queryFn: async () => {
+            const response = await axios.get(`https://server-study.vercel.app/reviewAvg/${_id}`);
+            const data = response.data;
+
+            return data;
+        }
+    })
+    console.log(reviewAvg)
 
 
 
@@ -124,7 +134,7 @@ const StudySectionDetails = () => {
                     <h3 className="text-2xl font-semibold sm:text-4xl">{SessionTitle}</h3>
                     <div className="flex justify-between w-full items-center">
                         <div className="text-sm text-gray-400">Tutor:{TutorName}</div>
-                        <span className="text-yellow-500 flex justify-center items-center gap-2">4<Icon icon="teenyicons:star-solid" /></span> </div>
+                        <span className="text-yellow-500 flex justify-center items-center gap-2">Avarage Rating:{reviewAvg?reviewAvg[0].averageRating:'0'}<Icon icon="teenyicons:star-solid" /></span> </div>
                     <p>{SessionDescription}</p>
                     <div className="border w-full p-2 rounded space-y-4">
                         <p className="text-xs text-gray-500">Duration Of Registration :({RegistrationStartDate}-{RegistrationEndDate}) </p>

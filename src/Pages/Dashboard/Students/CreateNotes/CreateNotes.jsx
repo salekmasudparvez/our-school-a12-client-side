@@ -30,7 +30,7 @@ const CreateNotes = () => {
         }
         // console.log(newNote)
         try {
-            await axios.post('http://localhost:5000/notes', newNote)
+            await axios.post('https://server-study.vercel.app/notes', newNote)
             .then(res=>{
                 if(res){
                     // console.log(res)

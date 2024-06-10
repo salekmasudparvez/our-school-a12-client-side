@@ -39,7 +39,7 @@ const StudySectionDetails = () => {
     const { refetch, isPending, data: booked } = useQuery({
         queryKey: ['bookedSessions'],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/bookedsessions?email=${user.email}&id=${getId.id}`);
+            const response = await axios.get(`https://server-study.vercel.app/bookedsessions?email=${user.email}&id=${getId.id}`);
             const data = response.data;
             console.log(data)
             return data;
@@ -49,7 +49,7 @@ const StudySectionDetails = () => {
     const { data: reviews } = useQuery({
         queryKey: ['reviews'],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/reviews/${getId.id}`);
+            const response = await axios.get(`https://server-study.vercel.app/reviews/${getId.id}`);
             const data = response.data;
 
             return data;
@@ -81,7 +81,7 @@ const StudySectionDetails = () => {
             BookId: _id,
             studentEmail: user?.email,
         }
-        axios.post('http://localhost:5000/bookedsession', sessionData)
+        axios.post('https://server-study.vercel.app/bookedsession', sessionData)
             .then(res => {
                 console.log(res)
                 setBookLoading(false)
@@ -93,7 +93,7 @@ const StudySectionDetails = () => {
     const { isLoading: LoadingMaterial, data: Material } = useQuery({
         queryKey: 'allMaterials',
         queryFn: async () => {
-            const res = await axios(`http://localhost:5000/singleMaterial/${_id}`)
+            const res = await axios(`https://server-study.vercel.app/singleMaterial/${_id}`)
             const data = await res.data
             return data
         }

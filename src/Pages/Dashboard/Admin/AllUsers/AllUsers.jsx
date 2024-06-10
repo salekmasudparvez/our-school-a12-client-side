@@ -25,16 +25,16 @@ const AllUsers = () => {
         queryKey: ['allusers', inputSearch],
         queryFn: async () => {
             if (inputSearch) {
-                let url = `http://localhost:5000/allusers?search=${inputSearch}`
+                let url = `https://server-study.vercel.app/allusers?search=${inputSearch}`
                 if(/.+@.+\..+/.test(inputSearch)) {
-                    url=`http://localhost:5000/allusers?email=${inputSearch}`
+                    url=`https://server-study.vercel.app/allusers?email=${inputSearch}`
                 }
                 const res = await axios.get(url);
                 const data = res.data;
                 console.log(data);
                 return data;
             }
-            const res = await axios.get('http://localhost:5000/allusers');
+            const res = await axios.get('https://server-study.vercel.app/allusers');
             const data = res.data;
             return data;
         }

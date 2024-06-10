@@ -16,7 +16,7 @@ const ViewAllSessionsHome = () => {
     const { isPending, isFetching, data: sessionData } = useQuery({
         queryKey: ['allsessionData', currentPage, itemPerPage],
         queryFn: async () => {
-            let url = `http://localhost:5000/sessions?page=${currentPage}&size=${itemPerPage}`;
+            let url = `https://server-study.vercel.app/sessions?page=${currentPage}&size=${itemPerPage}`;
 
             try {
                 const res = await fetch(url);

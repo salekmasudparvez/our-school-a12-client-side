@@ -13,7 +13,7 @@ const AllMaterials = () => {
     const {isLoading,refetch, data: allmaterials } = useQuery({
         queryKey: 'allMaterials',
         queryFn: async () => {
-            const res = await axios(`http://localhost:5000/materials/${user.email}`)
+            const res = await axios(`https://server-study.vercel.app/materials/${user.email}`)
             const data = await res.data
             return data
         }

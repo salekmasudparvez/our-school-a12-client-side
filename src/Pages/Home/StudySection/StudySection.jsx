@@ -10,7 +10,7 @@ const StudySection = () => {
 const {data:sessions}=useQuery({
   queryKey: ["studySection"],
   queryFn: async () => {
-    const response = await axios.get("http://localhost:5000/sessions")
+    const response = await axios.get("https://server-study.vercel.app/sessions")
     const data = response.data
     return data;
   },

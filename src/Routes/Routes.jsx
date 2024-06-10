@@ -48,17 +48,17 @@ const Routes = createBrowserRouter([
       {
         path: '/details/:id',
         element:<PrivateRoutes><StudySectionDetails></StudySectionDetails></PrivateRoutes> ,
-        loader: ({ params }) => fetch(`http://localhost:5000/session/${params.id}`),
+        loader: ({ params }) => fetch(`https://server-study.vercel.app/session/${params.id}`),
       },
       {
         path:'/viewstudysessionshome',
         element:<PrivateRoutes><ViewAllSessionsHome/></PrivateRoutes>,
-        loader:()=>fetch('http://localhost:5000/sessionsCount')
+        loader:()=>fetch('https://server-study.vercel.app/sessionsCount')
       },
       {
         path:'/alltutors',
         element:<PrivateRoutes><AllTutor/></PrivateRoutes>,
-        loader:()=>fetch('http://localhost:5000/tutorsCount')
+        loader:()=>fetch('https://server-study.vercel.app/tutorsCount')
       },
     ],
 
@@ -86,12 +86,12 @@ const Routes = createBrowserRouter([
       {
         path: '/dashboard/reviews/:id',
         element:  <StudentRoutes><Reviews></Reviews></StudentRoutes>,
-        loader: ({ params }) => fetch(`http://localhost:5000/reviews/${params.id}`),
+        loader: ({ params }) => fetch(`https://server-study.vercel.app/reviews/${params.id}`),
       },
       {
         path: '/dashboard/notes/:id',
         element: <StudentRoutes><UpdateNotes></UpdateNotes></StudentRoutes>,
-        loader: ({ params }) => fetch(`http://localhost:5000/noteUpdate/${params.id}`),
+        loader: ({ params }) => fetch(`https://server-study.vercel.app/noteUpdate/${params.id}`),
       },
 
       // tutor
@@ -128,7 +128,7 @@ const Routes = createBrowserRouter([
       {
         path: '/dashboard/admin/allstudysessionupdate/:id',
         element: <AdminRoutes><AllStudySessionUpdate></AllStudySessionUpdate></AdminRoutes>,
-        loader: ({ params }) => fetch(`http://localhost:5000/sessionsDetails/${params.id}`),
+        loader: ({ params }) => fetch(`https://server-study.vercel.app/sessionsDetails/${params.id}`),
       },
 
 

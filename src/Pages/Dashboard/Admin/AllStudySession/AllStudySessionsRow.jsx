@@ -37,7 +37,7 @@ const AllStudySessionsRow = ({ session, idx, refetch, setloading,setStatus }) =>
         }
         
         
-        await axios.patch('http://localhost:5000/allsessionsstatus', updateDoc)
+        await axios.patch('https://server-study.vercel.app/allsessionsstatus', updateDoc)
             .then(res => {
                 console.log(res)
                 refetch()
@@ -50,7 +50,7 @@ const AllStudySessionsRow = ({ session, idx, refetch, setloading,setStatus }) =>
         }
         setloading(true);
         try {
-            await axios.delete(`http://localhost:5000/deleteSession/${_id}`)
+            await axios.delete(`https://server-study.vercel.app/deleteSession/${_id}`)
             .then(res => {
                 console.log(res)
                 refetch()

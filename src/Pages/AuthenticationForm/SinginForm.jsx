@@ -42,7 +42,7 @@ const SinginForm = () => {
         .then(res=>{
             console.log(res)
             const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
-             axios.post('http://localhost:5000/users', newUserData)
+             axios.post('https://server-study.vercel.app/users', newUserData)
             toast.success('Successfully created Account')
             navigate('/')
         })
@@ -55,7 +55,7 @@ const SinginForm = () => {
         .then(res=>{
             console.log(res)
             const newUserData = { name:res?.user?.displayName, email:res?.user?.email, role:"Student" };
-             axios.post('http://localhost:5000/users', newUserData)
+             axios.post('https://server-study.vercel.app/users', newUserData)
             toast.success('Successfully created Account')
             navigate('/')
         })

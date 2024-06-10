@@ -28,7 +28,7 @@ const UpdateNotes = () => {
             description: description,
         }
         try {
-           await axios.patch(`http://localhost:5000/noteUpdate/${_id}`,updateNote)
+           await axios.patch(`https://server-study.vercel.app/noteUpdate/${_id}`,updateNote)
            .then(res=>{
             if(res){
                 toast.success('Note updated successfully')

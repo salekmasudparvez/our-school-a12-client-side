@@ -10,7 +10,7 @@ const StudyMaterials = () => {
     const {data:AllMaterials}=useQuery({
         queryKey:['studyMaterials'],
         queryFn:async()=>{
-            const response=await axios.get(`http://localhost:5000/studyMaterials/${user.email}`)
+            const response=await axios.get(`https://server-study.vercel.app/studyMaterials/${user.email}`)
             const data=response.data
             return data;
         }

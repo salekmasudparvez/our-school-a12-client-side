@@ -13,7 +13,7 @@ const Notes = () => {
     const {refetch, data: notes } = useQuery({
         queryKey: ['notes'],
         queryFn: async () => {
-            const res = await axios(`http://localhost:5000/notes/${user.email}`)
+            const res = await axios(`https://server-study.vercel.app/notes/${user.email}`)
             const data = await res.data
             return data
         }

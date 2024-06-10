@@ -18,7 +18,7 @@ const ViewAllSessionCard = ({ session,refetch }) => {
     const { data:feedBack } = useQuery({
         queryKey: ['feedBack',Status],
         queryFn: async () => {
-            const res = await axios(`http://localhost:5000/feedback/${_id}`)
+            const res = await axios(`https://server-study.vercel.app/feedback/${_id}`)
             const data = await res.data
             return data
         }
@@ -26,7 +26,7 @@ const ViewAllSessionCard = ({ session,refetch }) => {
     })
     const handleUpdateStatus = async(_id)=>{
         try {
-            await axios.patch('http://localhost:5000/aceptsession',{id:_id})
+            await axios.patch('https://server-study.vercel.app/aceptsession',{id:_id})
                 .then(res=>{
                     if(res){
                         toast.success("Session Status Updated")

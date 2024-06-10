@@ -17,7 +17,7 @@ const BookedSession = () => {
     const { isPending, data: bookedSeessions } = useQuery({
         queryKey: "bookedsessiontable",
         queryFn: async () => {
-            const response = await axios(`http://localhost:5000/bookedsessiontable/${user.email}`)
+            const response = await axios(`https://server-study.vercel.app/bookedsessiontable/${user.email}`)
             const data = response.data
             // console.log(data);
             return data;

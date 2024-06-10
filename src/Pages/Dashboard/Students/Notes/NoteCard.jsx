@@ -16,7 +16,7 @@ const [open,setopen]=useState(false)
 
 const handleDelete =async()=>{
     try {
-       await axios.delete(`http://localhost:5000/notes/${_id}`)
+       await axios.delete(`https://server-study.vercel.app/notes/${_id}`)
         .then(res=>{
             if(res){
                 

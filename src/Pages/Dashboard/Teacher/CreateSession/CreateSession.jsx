@@ -42,7 +42,7 @@ const CreateSession = () => {
         
 
         try {
-            await axios.post('http://localhost:5000/pendingSessions', createSessionData)
+            await axios.post('https://server-study.vercel.app/pendingSessions', createSessionData)
             .then(res=>{
                 if(res){
                     // console.log(res)

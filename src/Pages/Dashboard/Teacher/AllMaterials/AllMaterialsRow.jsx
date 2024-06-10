@@ -22,7 +22,7 @@ const AllMaterialsRow = ({ material, refetch }) => {
     //delete part start
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:5000/materials/${sessionId}`)
+            await axios.delete(`https://server-study.vercel.app/materials/${sessionId}`)
                 .then(res => {
                     if (res) {
                         setOpen(false)
@@ -74,7 +74,7 @@ const AllMaterialsRow = ({ material, refetch }) => {
            }
            console.log(updateMaterial)
 
-            await axios.patch('http://localhost:5000/material', updateMaterial)
+            await axios.patch('https://server-study.vercel.app/material', updateMaterial)
                 .then(res => {
                     if (res) {
                         toast.success('Note updated successfully')

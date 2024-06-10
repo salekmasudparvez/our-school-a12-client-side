@@ -17,7 +17,7 @@ const MaterialsCard = ({ material,refetch }) => {
     const { isLoading:Loader, data: sessions } = useQuery({
         queryKey: ['allMaterialsDate', sessionId],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/classEndDate/${sessionId}`)
+            const res = await axios.get(`https://server-study.vercel.app/classEndDate/${sessionId}`)
             return res.data
         }
     })
@@ -26,7 +26,7 @@ const MaterialsCard = ({ material,refetch }) => {
        
         setloading(true);
         try {
-            await axios.delete(`http://localhost:5000/deleteMaterials/${_id}`)
+            await axios.delete(`https://server-study.vercel.app/deleteMaterials/${_id}`)
                 .then(res => {
                     //console.log(res)
                     if(res.data.deletedCount>1){

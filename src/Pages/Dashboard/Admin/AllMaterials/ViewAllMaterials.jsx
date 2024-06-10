@@ -10,7 +10,7 @@ const ViewAllMaterials = () => {
     const {isLoading, refetch,data:AllMaterials}=useQuery({
         queryKey:['allMaterials'],
         queryFn:async()=>{
-            const res=await axios.get('http://localhost:5000/allMaterials')
+            const res=await axios.get('https://server-study.vercel.app/allMaterials')
             return res.data
         }
     })

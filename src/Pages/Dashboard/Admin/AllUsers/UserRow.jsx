@@ -16,7 +16,7 @@ const UserRow = ({user,setloadingUpdate,refetch,idx}) => {
             updateRole,
         }
         try {
-            await axios.patch('http://localhost:5000/allusers',updateRoleDoc)
+            await axios.patch('https://server-study.vercel.app/allusers',updateRoleDoc)
             .then(res=>{
                 if(res){
                     setloadingUpdate(false);

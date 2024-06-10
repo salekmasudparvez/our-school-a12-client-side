@@ -12,7 +12,7 @@ const UploadMaterials = () => {
     const {isLoading,data:approvedSessions}=useQuery({
         queryKey:['approvedSessions'],
         queryFn:async()=>{
-            const url=`http://localhost:5000/approvedsessions/${user.email}`
+            const url=`https://server-study.vercel.app/approvedsessions/${user.email}`
             console.log('url',url)
             const res = await axios.get(url);
             const data = res.data;

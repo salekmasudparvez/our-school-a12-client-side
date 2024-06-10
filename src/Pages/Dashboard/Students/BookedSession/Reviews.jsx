@@ -32,7 +32,7 @@ const Reviews = () => {
 
         }
         try {
-            await axios.post('http://localhost:5000/reviews',newReview)
+            await axios.post('https://server-study.vercel.app/reviews',newReview)
             .then(res=>{
                 console.log(res.data);
                 toast.success('Your review has been submitted');

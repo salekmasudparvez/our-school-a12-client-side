@@ -16,7 +16,7 @@ const AllTutor = () => {
     const { isPending, isFetching, data: alltutorsdata } = useQuery({
         queryKey: ['alltutorsdata', currentPage, itemPerPage],
         queryFn: async () => {
-            let url = `http://localhost:5000/alltutors?page=${currentPage}&size=${itemPerPage}`;
+            let url = `https://server-study.vercel.app/alltutors?page=${currentPage}&size=${itemPerPage}`;
 
             try {
                 const res = await fetch(url);

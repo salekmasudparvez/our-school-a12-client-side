@@ -8,7 +8,7 @@ const AllStudySectionTale = ({tabIndex,setLoading}) => {
     const { isLoading,data:allStudySessions } = useQuery({
         queryKey: ['allStudySessions', tabIndex],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/allsessions?id=${tabIndex}`)
+            const res = await axios.get(`https://server-study.vercel.app/allsessions?id=${tabIndex}`)
             const data = res.data;
             console.log(data,tabIndex)
             return data;

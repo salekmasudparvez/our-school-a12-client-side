@@ -68,7 +68,7 @@ const AllStudySessionUpdate = () => {
         //console.log(updateSessionData)
 
         try {
-            const res = await axios.patch('http://localhost:5000/sessionsDetails', updateSessionData)
+            const res = await axios.patch('https://server-study.vercel.app/sessionsDetails', updateSessionData)
             
                 if(res){
                     console.log(res)

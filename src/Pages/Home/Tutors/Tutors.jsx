@@ -10,7 +10,7 @@ const Tutors = () => {
     const { isLoading, data: tutors } = useQuery({
         queryKey: ["Alltutors"],
         queryFn: async () => {
-            const response = await axios.get("http://localhost:5000/alltutors")
+            const response = await axios.get("https://server-study.vercel.app/alltutors")
             const data = response.data
             return data;
         }

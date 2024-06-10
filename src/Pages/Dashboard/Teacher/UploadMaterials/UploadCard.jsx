@@ -57,7 +57,7 @@ const UploadCard = ({session}) => {
             }
             //console.log(newMaterial)
             
-            await axios.post('http://localhost:5000/materials', newMaterial)
+            await axios.post('https://server-study.vercel.app/materials', newMaterial)
             toast.success('Signup Successful')
             setLoading(false)
             navigate("/dashboard/tutor/allMaterials")

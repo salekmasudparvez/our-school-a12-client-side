@@ -12,7 +12,7 @@ const ViewAllSessions = () => {
     const { refetch,isLoading, data: pendingSessions } = useQuery({
         queryKey: ['sessionsPending'],
         queryFn: async () => {
-            const response = await axios(`http://localhost:5000/aceptsession/${user.email}`)
+            const response = await axios(`https://server-study.vercel.app/aceptsession/${user.email}`)
             const data = await response.data
             return data
         }

@@ -1,6 +1,8 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { PropTypes } from 'prop-types';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 const ViewAllSessionCard = ({ session,refetch }) => {
@@ -10,7 +12,18 @@ const ViewAllSessionCard = ({ session,refetch }) => {
         SessionTitle,
         Status,
         _id
-    } = session
+    } = session;
+    const [open, setOpen] = useState(false)
+    //console.log(session)
+    const { data:feedBack } = useQuery({
+        queryKey: ['feedBack',Status],
+        queryFn: async () => {
+            const res = await axios(`http://localhost:5000/feedback/${_id}`)
+            const data = await res.data
+            return data
+        }
+
+    })
     const handleUpdateStatus = async(_id)=>{
         try {
             await axios.patch('http://localhost:5000/aceptsession',{id:_id})
@@ -62,12 +75,24 @@ const ViewAllSessionCard = ({ session,refetch }) => {
                         <button className='flex whitespace-nowrap text-center mx-auto rounded-full px-2 py-1  text-base font-medium border border-green-500'>
                             <span><Icon className='text-green-600  text-3xl' icon="icon-park-solid:success" /></span>Approved
                         </button>
-                    ) : Status === "rejected" ? (
-                        <button onClick={()=>handleUpdateStatus(_id)} className='btn rounded-full btn-error border  text-white font-medium text-body-color transition hover:border-second  hover:text-white dark:border-dark-3 dark:text-dark-6'>
-                        Re-check
+                    ) : Status === "rejected" ? (<div className=' flex items-center justify-center gap-2'>
+                        <button onClick={()=>handleUpdateStatus(_id)} className='btn btn-sm whitespace-nowrap rounded-full btn-error border  text-white font-medium text-body-color transition hover:border-second  hover:text-white dark:border-dark-3 dark:text-dark-6'>
+                        <Icon className='text-xl' icon="pajamas:retry"/>Re-check
                     </button>
+                        <button onClick={()=>setOpen(true)} className='btn btn-sm rounded-full btn-info border whitespace-nowrap  text-white font-medium text-body-color transition hover:border-second  hover:text-white dark:border-dark-3 dark:text-dark-6'>
+                        <Icon className='text-xl' icon="material-symbols:feedback"/> View feedback
+                    </button>
+                    </div>
                     ) : null}
 
+                </div>
+            </div>
+            <div className={`absolute top-0 w-full px-3 min-h-[calc(100vh-200px)] h-full  ${open ? 'flex' : 'hidden'} backdrop-blur-md justify-center items-center`}>
+                <div className="flex relative flex-col lg:max-w-xl items-center md:max-w-lg max-w-md w-full gap-2 p-6 rounded-md shadow-md bg-gray-200 text-second">
+                    <h2 className="text-xl font-semibold leading-tight text-center tracking-wide">Feedback</h2>
+                    <p className='text-center'>Reject reason:{feedBack?.rejectReason}</p>
+                    <p className='text-center'>Feedback :{feedBack?.feedBack}</p>
+                    <button onClick={()=>setOpen(false)} className='absolute top-2 right-1'><Icon className='text-xl' icon="ic:round-close"/></button>
                 </div>
             </div>
         </>

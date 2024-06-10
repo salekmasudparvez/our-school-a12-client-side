@@ -2,6 +2,7 @@
 import axios from 'axios';
 import AllStudySessionsRow from './AllStudySessionsRow';
 import { useQuery } from '@tanstack/react-query';
+import { PropTypes } from 'prop-types';
 
 const AllStudySectionTale = ({tabIndex,setLoading}) => {
     const { isLoading,data:allStudySessions } = useQuery({
@@ -41,5 +42,8 @@ const AllStudySectionTale = ({tabIndex,setLoading}) => {
        
     );
 };
-
+AllStudySectionTale.propTypes={
+    tabIndex:PropTypes.number.isRequired,
+    setLoading:PropTypes.func.isRequired,
+}
 export default AllStudySectionTale;

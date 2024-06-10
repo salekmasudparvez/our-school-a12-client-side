@@ -9,8 +9,6 @@ import TutorCard from "./TutorCard";
 const AllTutor = () => {
     const [itemPerPage, setItemPerPage] = useState(6);
     const { count } = useLoaderData();
-    console.log(count)
-    // const count = 10
     const numberOfPages = Math.ceil(count / itemPerPage);
     const pages = [...Array(numberOfPages).keys()];
     const [currentPage, setCurrentPage] = useState(0);

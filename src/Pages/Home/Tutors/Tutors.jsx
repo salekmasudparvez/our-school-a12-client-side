@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const Tutors = () => {
     const { isLoading, data: tutors } = useQuery({
-        queryKey: ["tutors"],
+        queryKey: ["Alltutors"],
         queryFn: async () => {
             const response = await axios.get("http://localhost:5000/alltutors")
             const data = response.data

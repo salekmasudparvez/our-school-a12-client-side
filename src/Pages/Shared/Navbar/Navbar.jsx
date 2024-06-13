@@ -25,7 +25,7 @@ const Navbar = ({ open, setOpen }) => {
     </div>
     return (
         <>
-            <nav className="flex bg-white bg-opacity-40 fixed top-0 z-20 w-full border gap-4 justify-between items-center min-h-[74px] mx-auto md:px-10 px-4">
+            <nav className="flex  backdrop-blur-md  bg-opacity-40  fixed top-0 z-20 w-full border gap-4 justify-between items-center min-h-[74px] mx-auto md:px-10 px-4">
                 {/* hambarger */}
                 <div onClick={() => setOpen(!open)} className='  md:hidden w-10 text-2xl'>
                     {open ? <Icon icon="akar-icons:cross" /> : <Icon icon="fe:bar" />}
@@ -35,7 +35,7 @@ const Navbar = ({ open, setOpen }) => {
                 <div className='md:flex   hidden w-[40%] text-second justify-center items-center gap-3'>
                     {navItems}
                 </div>
-               {user &&  <div className='md:w-[30%] w-fit  flex text-second justify-end items-center'>
+               {user &&  <div className='md:w-[30%] w-fit backdrop-blur-md   flex text-second justify-end items-center'>
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
@@ -47,7 +47,7 @@ const Navbar = ({ open, setOpen }) => {
                 </div>}
 
             </nav>
-            {open && <div className='md:hidden z-[10] bg-white bg-opacity-60 text-center flex flex-col border border-second border-opacity-50 shadow-md w-full fixed top-0 mt-[74px] justify-start p-3 rounded  gap-1'>
+            {open && <div className='md:hidden z-[10] backdrop-blur-md  text-center flex flex-col border border-second border-opacity-50 shadow-md w-full fixed top-0 mt-[74px] justify-start p-3 rounded  gap-1'>
                 {navItems}
             </div>}
         </>

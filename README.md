@@ -13,5 +13,5 @@ Our shcool is a awesome online learning platform for students.Any student can ea
 - Students can give reviews which session he will book 
 
 
-[Live Link](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md)
+[Live Link](https://sm-ourschool.netlify.app/)
 

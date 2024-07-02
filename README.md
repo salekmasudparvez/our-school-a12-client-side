@@ -25,4 +25,7 @@ Our shcool is a awesome online learning platform for students.Any student can ea
 
 
 [Live Link](https://sm-ourschool.netlify.app/)
+# For the project 
+I utilized HTML, CSS, Tailwind (CSS framework), JavaScript,
+React, Express.js, MongoDB, and Firebase for authentication.
 

@@ -74,7 +74,7 @@ const AllUsers = () => {
                 </fieldset>
             </div>
             {/* BODY */}
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto lg:max-h-[calc(100vh-64px)] max-h-[calc(100vh-138px)] overflow-y-auto">
                 <table className="table">
                     {/* head */}
                     <thead>

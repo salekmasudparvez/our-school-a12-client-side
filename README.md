@@ -1,3 +1,14 @@
+## How to run this project
+first you have clone this project and then
+
+Step-1:
+```bash
+  npm install
+```
+Step-2:
+```bash
+  npm run dev
+```
 # Our School
 
 Our shcool is a awesome online learning platform for students.Any student can easily book and any session and pay very easiy.Here you will find our talented tutor's sessions.Here some fetures about Our School.
@@ -14,4 +25,7 @@ Our shcool is a awesome online learning platform for students.Any student can ea
 
 
 [Live Link](https://sm-ourschool.netlify.app/)
+# For the project 
+I utilized HTML, CSS, Tailwind (CSS framework), JavaScript,
+React, Express.js, MongoDB, and Firebase for authentication.
 

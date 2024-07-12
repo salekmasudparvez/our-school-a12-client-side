@@ -26,7 +26,7 @@ const Reviews = () => {
             rating:rating,
             review:comment,
             studentName:user.displayName,
-            studentImageUrl:user.photoURL ||"https://i.ibb.co/Qr9pWXJ/unknown.webp",
+            studentImageUrl:user.photoURL ||"https://i.ibb.co/t3n0XR7/240.jpg",
             reviewId:getParamsId.id,
             
 

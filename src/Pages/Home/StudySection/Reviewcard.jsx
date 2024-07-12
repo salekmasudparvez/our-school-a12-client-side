@@ -3,7 +3,7 @@ import '@smastrom/react-rating/style.css'
 import { PropTypes } from 'prop-types';
 
 const Reviewcard = ({singleReview}) => {
-   console.log(singleReview)
+   //console.log(singleReview)
      const {name,image,title,review,rating} = singleReview;   
     return (
         <div className="w-full max-w-md px-8 py-4 mt-16 bg-white rounded-lg shadow-lg border-2 dark:bg-gray-800">

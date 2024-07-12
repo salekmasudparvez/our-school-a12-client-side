@@ -12,6 +12,10 @@ import {
     useLoaderData,
 } from "react-router-dom";
 import { isBefore } from "date-fns";
+import CheckoutForm from "./CheckoutForm";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
 
 
 const StudySectionDetails = () => {
@@ -19,29 +23,35 @@ const StudySectionDetails = () => {
     const [role] = useRole();
     const [bookLoading, setBookLoading] = useState(false);
     const [btnValue, setbtnValue] = useState(true);
-    
+    const [booked,setBooked]=useState(true);
+    const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
+
+    //console.log(import.meta.env.VITE_Payment_Gateway_PK)
+
     const getId = useParams();
     const session = useLoaderData();
     // getsingle sessions data
 
     const { SessionTitle, TutorName, SessionDescription, RegistrationStartDate, RegistrationEndDate, ClassStartDate, ClassEndDate, SessionDuration, RegistrationFee, _id } = session || {};
+    //console.log(RegistrationFee,typeof RegistrationFee)
 
-    useEffect(() =>{
-        if(isBefore(new Date,ClassEndDate)){
+    useEffect(() => {
+        if (isBefore(new Date, ClassEndDate)) {
             setbtnValue(false)
-        }else{
+        } else {
             setbtnValue(true)
         }
-    },[ClassEndDate])
-    
+    }, [ClassEndDate])
+
 
     //it is use for btn disable
-    const { refetch, isPending, data: booked } = useQuery({
+    const { refetch, isPending, data } = useQuery({
         queryKey: ['bookedSessions'],
         queryFn: async () => {
             const response = await axios.get(`https://server-study.vercel.app/bookedsessions?email=${user.email}&id=${getId.id}`);
             const data = response.data;
             console.log(data)
+            setBooked(data)
             return data;
         }
     })
@@ -71,6 +81,11 @@ const StudySectionDetails = () => {
         setBookLoading(true)
         if (booked.length > 0) {
             toast.error('You have already booked this session')
+            setBookLoading(false)
+            return;
+        }
+        if (RegistrationFee > 0) {
+            toast.error('Sorry, You have to pay')
             setBookLoading(false)
             return;
         }
@@ -104,9 +119,9 @@ const StudySectionDetails = () => {
             return data
         }
     })
-    //console.log(Material)
+    //console.log(booked)
 
-    if (!user || LoadingMaterial ||isPending) {
+    if (!user || LoadingMaterial || isPending) {
         return (<div className="flex justify-center items-center w-full min-h-screen">
             <Hourglass
                 visible={true}
@@ -119,7 +134,7 @@ const StudySectionDetails = () => {
             />
         </div>)
     }
- 
+
     return (
         <section className=" text-second py-[75px]">
             <div className="flex flex-col lg:flex-row justify-end items-center  px-3 max-w-6xl  p-6 mx-auto">
@@ -130,7 +145,7 @@ const StudySectionDetails = () => {
                     <h3 className="text-2xl font-semibold sm:text-4xl">{SessionTitle}</h3>
                     <div className="flex justify-between w-full items-center">
                         <div className="text-sm text-gray-400">Tutor:{TutorName}</div>
-                        <span className="text-yellow-500 flex justify-center items-center gap-2">Avarage Rating:{reviewAvg[0]?.averageRating?reviewAvg[0]?.averageRating:'0'}<Icon icon="teenyicons:star-solid" /></span> </div>
+                        <span className="text-yellow-500 flex justify-center items-center gap-2">Avarage Rating:{reviewAvg[0]?.averageRating ? reviewAvg[0]?.averageRating : 0}<Icon icon="teenyicons:star-solid" /></span> </div>
                     <p>{SessionDescription}</p>
                     <div className="border w-full p-2 rounded space-y-4">
                         <p className="text-xs text-gray-500">Duration Of Registration :({RegistrationStartDate}-{RegistrationEndDate}) </p>
@@ -140,17 +155,27 @@ const StudySectionDetails = () => {
                         </div>
                         <div className="flex justify-between">
                             <p className="text-xs text-gray-500">Session Duration :{SessionDuration}</p>
-                            <p className="text-xs text-red-500">Registration fee :{RegistrationFee !==0 && <span>$</span>}{RegistrationFee===0?'Free':RegistrationFee}</p>
+                            <p className="text-xs text-red-500">Registration fee :{RegistrationFee !== 0 && <span>$</span>}{RegistrationFee === 0 ? 'Free' : RegistrationFee}</p>
                         </div>
 
-                       
-                          { Material && <div className="whitespace-nowrap flex justify-between px-2 py-1 items-center gap-2 bg-gradient-to-r hover:from-sky-500 from-sky-300 hover:via-sky-300  via-sky-500 hover:to-sky-500 to-sky-300 text-white rounded-full">
-                                <div className="flex justify-start text-xs md:text-base items-start gap-2" ><Icon className="text-xl" icon="fluent:document-pdf-32-regular"></Icon>Resources.pdf </div>
-                                <Icon icon="material-symbols:lock"></Icon>
+
+                        {Material && <div className="whitespace-nowrap flex justify-between px-2 py-1 items-center gap-2 bg-gradient-to-r hover:from-sky-500 from-sky-300 hover:via-sky-300  via-sky-500 hover:to-sky-500 to-sky-300 text-white rounded-full">
+                            <div className="flex justify-start text-xs md:text-base items-start gap-2" ><Icon className="text-xl" icon="fluent:document-pdf-32-regular"></Icon>Resources.pdf </div>
+                            <Icon icon="material-symbols:lock"></Icon>
+                        </div>}
+
+                        
+                        {booked == true  &&
+                            <div className={`${role === "Teacher" || role === 'Admin' ? "hidden" : ""}`}>
+                                <button disabled={btnValue} className={`${booked && 'btn-disabled'} ${isPending && "btn-disabled"} btn btn-block btn-outline hover:bg-first hover:text-white rounded-sm`}>{
+                                    btnValue ? "Registration closed" : bookLoading ? <Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" /> : "Booked"}</button>
                             </div>}
-                       
-                        <div className={`${role === "Teacher" || role === 'Admin' ? "hidden" : ""}`}>
-                            <button disabled={btnValue} onClick={() => handleBook(_id)} className={`${booked && 'btn-disabled'} ${isPending &&  "btn-disabled"} btn btn-block btn-outline hover:bg-first hover:text-white rounded-sm`}>{btnValue?"Registration closed":bookLoading ? <Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" /> : "Book Now"}</button></div>
+                        {booked == false &&
+                            <Elements stripe={stripePromise}>
+                                <CheckoutForm session={session} refetch={refetch} ></CheckoutForm>
+                            </Elements>
+                        }
+
 
                     </div>
                 </div>

@@ -7,10 +7,18 @@ import { PropTypes } from 'prop-types';
 
 
 
-const PrivateRoutes = ({ children }) => {
-    const {loading,user } = useAuth();
+const PrivateRoute = ({ children }) => {
+    const { loading, user } = useAuth();
     const location = useLocation();
-    if (loading ) {
+
+    if (user) {
+        return <>
+            {children}
+        </>
+    }
+
+
+    if (loading) {
         return (<div className="flex justify-center items-center w-full min-h-screen">
             <Hourglass
                 visible={true}
@@ -23,18 +31,11 @@ const PrivateRoutes = ({ children }) => {
             />
         </div>)
     }
-    if (user) {
-        return <>
-            {children}
-        </>
-    }
-        return <Navigate to='/singup' state={location} replace={true}></Navigate>
-    
-    
-    
+    console.log('....')
+    return <Navigate to='/singup' state={location} replace={true}></Navigate>
 
 };
-PrivateRoutes.propTypes={
-    children:PropTypes.node.isRequired,
+PrivateRoute.propTypes = {
+    children: PropTypes.node.isRequired,
 }
-export default PrivateRoutes;
+export default PrivateRoute;

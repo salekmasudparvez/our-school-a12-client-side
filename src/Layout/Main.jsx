@@ -32,9 +32,9 @@ const Main = () => {
         </div>)
     }
     return (
-        <div>
+        <div className="bg-white">
             <Navbar open={open} setOpen={setOpen}/>
-           <div onClick={()=>setOpen(false)} className="min-h-[calc(100vh-300px)]">
+           <div onClick={()=>setOpen(false)} className="min-h-[calc(100vh-300px)] bg-white">
            <Outlet/>
            </div>
             <Footer/>

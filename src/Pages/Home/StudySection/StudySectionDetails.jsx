@@ -23,7 +23,7 @@ const StudySectionDetails = () => {
     const [role] = useRole();
     const [bookLoading, setBookLoading] = useState(false);
     const [btnValue, setbtnValue] = useState(true);
-    const [booked,setBooked]=useState(true);
+    //const [booked,setBooked]=useState(true);
     const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
     //console.log(import.meta.env.VITE_Payment_Gateway_PK)
@@ -45,16 +45,17 @@ const StudySectionDetails = () => {
 
 
     //it is use for btn disable
-    const { refetch, isPending, data } = useQuery({
-        queryKey: ['bookedSessions'],
+    const { refetch, isPending, data:booked } = useQuery({
+        queryKey: ['bookedSessionsstatus',user?.email,getId.id],
         queryFn: async () => {
             const response = await axios.get(`https://server-study.vercel.app/bookedsessions?email=${user.email}&id=${getId.id}`);
             const data = response.data;
             console.log(data)
-            setBooked(data)
+            //setBooked(data)
             return data;
         }
     })
+    //console.log(booked)
     // get reciews
     const { data: reviews } = useQuery({
         queryKey: ['reviews'],
@@ -77,18 +78,21 @@ const StudySectionDetails = () => {
 
 
     //post data to bookedsession
-    const handleBook = async (_id) => {
-        setBookLoading(true)
-        if (booked.length > 0) {
-            toast.error('You have already booked this session')
-            setBookLoading(false)
+    const handleBook = async () => {
+        setBookLoading(true);
+    
+        if (booked) {
+            toast.error('You have already booked this session');
+            setBookLoading(false);
             return;
         }
+    
         if (RegistrationFee > 0) {
-            toast.error('Sorry, You have to pay')
-            setBookLoading(false)
+            toast.error('Sorry, You have to pay');
+            setBookLoading(false);
             return;
         }
+    
         const sessionData = {
             SessionTitle,
             TutorName,
@@ -101,16 +105,22 @@ const StudySectionDetails = () => {
             RegistrationFee,
             BookId: _id,
             studentEmail: user?.email,
-        }
-        axios.post('https://server-study.vercel.app/bookedsession', sessionData)
-            .then(res => {
-                console.log(res)
-                setBookLoading(false)
-                refetch()
-                toast.success('Booked session Successfully')
-            })
+        };
 
-    }
+    
+        try {
+            const response = await axios.post('https://server-study.vercel.app/bookedsession', sessionData);
+            console.log(response);
+            setBookLoading(false);
+            refetch();
+            toast.success('Booked session Successfully');
+        } catch (error) {
+            console.error('Error booking session:', error);
+            setBookLoading(false);
+            toast.error('Failed to book session. Please try again.');
+        }
+    };
+    
     const { isLoading: LoadingMaterial, data: Material } = useQuery({
         queryKey: 'allMaterials',
         queryFn: async () => {
@@ -165,12 +175,17 @@ const StudySectionDetails = () => {
                         </div>}
 
                         
-                        {booked == true  &&
+                        {booked && RegistrationFee > 0 &&
                             <div className={`${role === "Teacher" || role === 'Admin' ? "hidden" : ""}`}>
                                 <button disabled={btnValue} className={`${booked && 'btn-disabled'} ${isPending && "btn-disabled"} btn btn-block btn-outline hover:bg-first hover:text-white rounded-sm`}>{
                                     btnValue ? "Registration closed" : bookLoading ? <Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" /> : "Booked"}</button>
                             </div>}
-                        {booked == false &&
+                        { RegistrationFee === 0 &&
+                            <div className={`${role === "Teacher" || role === 'Admin' ? "hidden" : ""}`}>
+                                <button onClick={handleBook} disabled={btnValue} className={`${booked && 'btn-disabled'} ${isPending && "btn-disabled"} btn btn-block btn-outline hover:bg-first hover:text-white rounded-sm`}>{
+                                    btnValue ? "Registration closed" : bookLoading ? <Icon className="text-3xl animate-spin mx-auto" icon="solar:black-hole-3-line-duotone" /> : "Free book"}</button>
+                            </div>}
+                        {!booked && RegistrationFee >0 &&
                             <Elements stripe={stripePromise}>
                                 <CheckoutForm session={session} refetch={refetch} ></CheckoutForm>
                             </Elements>

@@ -16,12 +16,12 @@ const CheckoutForm = ({ session,refetch }) => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const totalPrice = RegistrationFee;
-    const [loading, setLoading] = useState(false);
+   
 
     useEffect(() => {
         const paymentIntent = async () => {
             try {
-                const response = await axios.post('http://localhost:5000/create-payment-intent', { price: totalPrice });
+                const response = await axios.post('https://server-study.vercel.app/create-payment-intent', { price: totalPrice });
                 setClientSecret(response.data.clientSecret);
             } catch (error) {
                 console.error('Error fetching client secret:', error);
@@ -33,18 +33,18 @@ const CheckoutForm = ({ session,refetch }) => {
     }, [totalPrice]);
 
     const handleSubmit = async (event) => {
-        setLoading(true)
+      
         event.preventDefault();
 
         if (!stripe || !elements || !clientSecret) {
-            setLoading(false)
+          
             return;
         }
 
         const card = elements.getElement(CardElement);
 
         if (!card) {
-            setLoading(false)
+           
             return;
         }
 
@@ -61,7 +61,6 @@ const CheckoutForm = ({ session,refetch }) => {
 
             if (error) {
                 console.error('Error confirming payment:', error);
-                setLoading(false)
                 setError(error.message || 'Payment failed. Please try again.');
             } else {
                 if (paymentIntent.status === 'succeeded') {
@@ -91,10 +90,10 @@ const CheckoutForm = ({ session,refetch }) => {
                         }
                     };
 
-                    const res = await axios.post('http://localhost:5000/payments', payment);
-                    console.log('Payment saved:', res.data);
+                    const res = await axios.post('https://server-study.vercel.app/payments', payment);
+                    console.log('Payment saved------------------:', res.data);
 
-                    if (res.data?.paymentResult?.insertedId) {
+                    if (res.data?.insertedId) {
                         Swal.fire({
                             position: "top-end",
                             icon: "success",
@@ -103,6 +102,7 @@ const CheckoutForm = ({ session,refetch }) => {
                             timer: 1500
                         });
                         navigate('/');
+                        refetch()
                     }
                 }
             }
@@ -141,6 +141,7 @@ const CheckoutForm = ({ session,refetch }) => {
 
 CheckoutForm.propTypes = {
     session: PropTypes.object.isRequired,
+    refetch:PropTypes.func
 };
 
 export default CheckoutForm;

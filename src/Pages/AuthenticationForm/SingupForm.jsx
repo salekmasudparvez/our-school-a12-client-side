@@ -72,19 +72,20 @@ const SingupForm = () => {
     }
     return (
 
-        <div className="hero-content  min-h-screen w-full items-start gap-0  p-0 flex-col lg:flex-row">
+       <div className="bg-white">
+         <div className="hero-content bg-white  min-h-screen w-full items-start gap-0   p-0 flex-col lg:flex-row">
             <div className="text-center hidden lg:flex w-1/2 rounded-md   lg:text-left">
                 <img className=" w-full" src="https://i.ibb.co/jL79g0F/lovely-hand-drawn-education-cocept.png" alt="book" />
-                <button className="text-xl absolute top-1 left-1 btn hover:bg-first  ">
-                    <Link className="flex justify-center gap-1 items-center text-gray-700 hover:text-white" to='/'>
+                <button className="text-xl border hover:bg-first p-2 hover:text-white focus:border-b-black rounded absolute btn  top-1 right-1 bg-white">
+                    <Link className="flex justify-center bg-transparent gap-1 items-center text-gray-700 hover:text-white" to='/'>
                         <Icon icon="grommet-icons:logout" />
                         <span>Back to home</span>
                     </Link>
                 </button>
             </div>
-            <div className=" lg:w-1/2 w-full px-4 gap-3 h-full my-10 flex flex-col justify-center min-w-64">
-                <button className="text-base lg:hidden flex absolute top-1 left-1 btn hover:bg-first  ">
-                    <Link className="flex justify-center gap-1 items-center text-gray-700 hover:text-white" to='/'>
+            <div className=" lg:w-1/2 w-full max-w-lg mx-auto px-4 gap-3 h-full my-10 flex flex-col justify-center min-w-64">
+                <button className="text-base lg:hidden rounded btn-sm flex absolute top-1 left-1 bg-white btn hover:bg-first   ">
+                    <Link className="flex justify-center gap-1 items-center bg-transparent text-gray-700 hover:text-white" to='/'>
                         <Icon icon="grommet-icons:logout" />
                         <span>Back to home</span>
                     </Link>
@@ -125,7 +126,7 @@ const SingupForm = () => {
                         </label>
                     </div>
                     <div className=" z-0 w-full group">
-                        <select onChange={(e) => setRole(e.target.value)} className="select focus:border-none select-bordered w-full">
+                        <select onChange={(e) => setRole(e.target.value)} className="select bg-white border border-gray-500 focus:border-none select-bordered w-full">
                             <option disabled selected>Role</option>
                             <option value="Student">Student</option>
                             <option value="Teacher">Teacher</option>
@@ -160,21 +161,22 @@ const SingupForm = () => {
 
                     </button>
                 </form>
-                <div className="text-center">
+                <div className="text-center text-gray-700">
                     <h3>Already have an account? please<Link to="/singin" className="btn btn-link px-0">Sing in</Link></h3>
                 </div>
-                <div className="divider">Or</div>
-                <button onClick={handleGoogleSingUp} type="button" className="flex btn items-center justify-center w-full hover:bg-first hover:text-white space-x-2 border rounded-md ">
+                <div className="divider p-0">Or</div>
+                <button onClick={handleGoogleSingUp} type="button" className="flex bg-white text-gray-700 btn items-center justify-center w-full hover:bg-first hover:text-white space-x-2 border rounded-md ">
                     <span className="text-4xl"> <Icon icon="flat-color-icons:google" /></span>
                     <p>Sing up with Google</p>
                 </button>
-                <button onClick={handleGithubSingUp} type="button" className="flex btn items-center justify-center mb-10 w-full hover:bg-first hover:text-white space-x-2 border rounded-md ">
+                <button onClick={handleGithubSingUp} type="button" className="flex text-gray-700 bg-white btn items-center justify-center mb-10 w-full hover:bg-first hover:text-white space-x-2 border rounded-md ">
                     <span className="text-4xl"> <Icon icon="devicon:github" /></span>
                     <p>Sing up with Github</p>
                 </button>
             </div>
 
         </div>
+       </div>
 
     )
 };

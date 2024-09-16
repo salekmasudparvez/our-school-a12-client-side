@@ -48,7 +48,7 @@ const Navbar = ({ open, setOpen }) => {
 
             </nav>
             <div
-                className={`md:hidden z-[10] backdrop-blur-md text-center flex flex-col border border-second border-opacity-50 shadow-md w-full fixed top-0 mt-[74px] justify-start p-3 rounded gap-1 transform transition-all duration-300 ease-in-out ${open ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'
+                className={`md:hidden z-[10] backdrop-blur-md text-center flex flex-col border border-second border-opacity-50 shadow-md w-full fixed top-0 mt-[74px] justify-start p-3 rounded gap-1 transition-opacity duration-300 ease-in-out ${open ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'
                     }`}
             >
                 {navItems}

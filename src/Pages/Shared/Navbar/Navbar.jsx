@@ -32,7 +32,8 @@ const Navbar = ({ open, setOpen }) => {
                 </div>
                 {/* Logo part */}
                 <Logo css="md:w-[30%] w-fit  " />
-                <div className='md:flex hidden w-[40%] text-second justify-center items-center gap-3'>
+                <div className='md:flex hidden w-[40%] text-first
+                 justify-center items-center gap-3'>
                     {navItems}
                 </div>
                 {user && <div className='md:w-[30%] w-fit backdrop-blur-md   flex text-second justify-end items-center'>
